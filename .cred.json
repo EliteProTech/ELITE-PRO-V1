@@ -1,0 +1,35 @@
+# Contact details
+YT_NAME=YT: @EliteProTechs
+SOCIAL_M=GitHub: EliteProTech
+LOCATION=Nigeria, Port Harcourt
+
+# Creator details
+OWNER_NUMBER=2348109263390
+OWNER_NAME=ElitePro
+BOT_NAME=ELITE-PRO-V1
+SESSION_ID={"noiseKey":{"private":{"type":"Buffer","data":"CKX0Lw1eDIDog25Q9HWGESZ/e5t/4zBmW6CVXm1FYXw="},"public":{"type":"Buffer","data":"JLod/qxEkWUTkmLDS5NWxHCFv4hWZqv4oFd/xWclOmA="}},"pairingEphemeralKeyPair":{"private":{"type":"Buffer","data":"YGVWCt6NqVATzKRhsstMTDDhHBNAZkeSy0O2VQB35Uw="},"public":{"type":"Buffer","data":"roMP+q0Ae9JMyTv8BP3nELor3qgsWGQ2XVdCMojzHyA="}},"signedIdentityKey":{"private":{"type":"Buffer","data":"sITTZ6PUbdqZpRoTV3K7bM9z4/A/7pcLma4yIhiaDUs="},"public":{"type":"Buffer","data":"QBf5HXrXrf9ixHDUv6ZAOPyqPKJGE5UbUv5/pwITTBM="}},"signedPreKey":{"keyPair":{"private":{"type":"Buffer","data":"6IRSKqK0vacVBh1C3TncSovnEpocsfGSbHEDa4MVOlY="},"public":{"type":"Buffer","data":"8mQw0zCfLJUbC1+P/aA1lPEjCSdqc0QWj1b9aFWFIUQ="}},"signature":{"type":"Buffer","data":"cOl/JF19QST3TBMGALPnU7lvjCt8cO68jzbYxEFZz9QlwV4lcE6utOc/Jnwm1n4lzUGih0rOTshlqV7dboEVhQ=="},"keyId":1},"registrationId":127,"advSecretKey":"JultDgFbX/2nCr8TU+QRsSKultxQNqzJTJvQziV8/Rs=","processedHistoryMessages":[],"nextPreKeyId":31,"firstUnuploadedPreKeyId":31,"accountSyncCounter":0,"accountSettings":{"unarchiveChats":false},"registered":true,"pairingCode":"RLQMNDDK","me":{"id":"2349160398114:69@s.whatsapp.net","name":"rowdybaby","lid":"41584477384920:69@lid"},"account":{"details":"CLySlr8FEO2Qw8QGGC0gACgA","accountSignatureKey":"f5r67F1W2SP6hagaaU/a/+oiu37cAWyT3LXwYXnGsVc=","accountSignature":"AobzRWWmGiUOw7zvDzbY8ge3nMch2Dn5DjcKVddFw3pXkN489WHtRbkH9d1ob7/b4Lg9amXhXukPZF0VVKIGCw==","deviceSignature":"5hOslGfanosFxNu0n+L5xGUVdHhcld9LvSHlLRQ371a15to9Mc+RUowGbRlWndvcPD4haoMLkhcrs7CpgY+ahw=="},"signalIdentities":[{"identifier":{"name":"2349160398114:69@s.whatsapp.net","deviceId":0},"identifierKey":{"type":"Buffer","data":"BX+a+uxdVtkj+oWoGmlP2v/qIrt+3AFsk9y18GF5xrFX"}}],"platform":"smba","routingInfo":{"type":"Buffer","data":"CA0IEg=="},"lastAccountSyncTimestamp":1754318960,"lastPropHash":"2G4Amu"}
+
+# Default settings
+PREFIX=.
+AUTO_RECORDING=false
+AUTO_TYPING=false
+AUTO_RECORD_TYPE=false
+AUTO_READ=false
+AUTO_BIO=true
+ANTI_92=false
+AUTO_SW_VIEW=true
+WELCOME=true
+AUTO_REACT=false
+AUTO_LIKE_STATUS=true
+
+# Thumbnail profile picture
+ELITE_PRO_PP=https://i.ibb.co/jk0ynvbn/7a8c4b5b617fa11a1e9a61190f427546.jpg
+THEME_EMOJI=👨‍💻
+
+# Sticker details
+PACKNAME=Sticker By
+AUTHOR=ELITEPRO\n\nContact: +2348109263390
+
+# Default settings 2
+WM=Youtube @EliteProTechs
+LINK=https://whatsapp.com/channel/0029VaXaqHII1rcmdDBBsd3g
