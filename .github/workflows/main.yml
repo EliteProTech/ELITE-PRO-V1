@@ -1,0 +1,36 @@
+name: Node.js CI - Auto Restart Every 6 Hours
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # يشتغل عند الدقيقة 0 كل 6 ساعات: 0:00, 6:00, 12:00, 18:00
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Start application
+      run: |
+        nohup npm start &
+        sleep 21600  # انتظر 6 ساعات (21600 ثانية) قبل انتهاء الخطوة وتنتهي الجلسة
