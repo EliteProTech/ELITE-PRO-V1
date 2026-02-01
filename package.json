@@ -16,7 +16,7 @@
   "author": "cyrilix-xmd",
   "license": "MIT",
   "dependencies": {
-    "baileys": "npm:gifted-baileys@2.0.5",
+    "baileys": "npm:gifted-baileys@2.0.6",
     "@adiwajshing/keyed-db": "^0.2.4",
     "express": "^5.1.0",
     "@hapi/boom": "latest",
