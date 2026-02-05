@@ -21,7 +21,7 @@
     "express": "^5.1.0",
     "@hapi/boom": "latest",
     "awesome-phonenumber": "^5.9.0",
-    "axios": "^1.9.0",
+    "axios": "^1.13.4",
     "gifted-btns": "^1.0.0",
     "chalk": "^4.1.2",
     "cheerio": "^1.0.0-rc.12",
