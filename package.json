@@ -16,7 +16,7 @@
   "author": "cyrilix-xmd",
   "license": "MIT",
   "dependencies": {
-    "baileys": "npm:eliteprotech-baileys@1.0.0",
+    "baileys": "npm:eliteprotech-baileys@1.0.2",
     "@adiwajshing/keyed-db": "^0.2.4",
     "express": "^5.1.0",
     "@hapi/boom": "latest",
