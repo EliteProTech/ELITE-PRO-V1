@@ -2,307 +2,297 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>ELITE-PRO-V1 BOT | Advanced WhatsApp Automation</title>
+  <title>ELITE-PRO-V1 | The Future of WhatsApp</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="The most advanced WhatsApp automation solution by EliteProEmpire">
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;800&family=Outfit:wght@400;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
   <style>
     :root {
-      --primary: #00c853;
-      --primary-dark: #00a344;
-      --secondary: #1a1a2e;
-      --accent: #00bfa5;
-      --text: #ffffff;
-      --text-light: #dddddd;
-      --bg-dark: #000000;
-      --bg-gradient: linear-gradient(135deg, #000000, #1a1a2e);
-      --card-bg: rgba(0, 0, 0, 0.7);
-      --card-border: rgba(255, 255, 255, 0.1);
-      --feature-bg: rgba(255, 255, 255, 0.1);
+      --bg: #030303;
+      --accent: #00ffa3;
+      --accent-soft: rgba(0, 255, 163, 0.1);
+      --card: #0a0a0a;
+      --text-main: #ffffff;
+      --text-dim: #888888;
+      --glass: rgba(255, 255, 255, 0.03);
+      --nav-height: 80px;
     }
-    
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-    
+
     body {
-      font-family: 'Poppins', sans-serif;
-      background: var(--bg-gradient);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      overflow-x: hidden;
       line-height: 1.6;
     }
-    
+
+    .glow {
+      position: fixed;
+      width: 40vw;
+      height: 40vw;
+      background: radial-gradient(circle, rgba(0, 255, 163, 0.08) 0%, transparent 70%);
+      top: -10vw;
+      right: -10vw;
+      z-index: 0;
+      pointer-events: none;
+    }
+
     .container {
       width: 100%;
       max-width: 1200px;
       margin: 0 auto;
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      flex-grow: 1;
+      padding: 0 1.5rem;
     }
-    
-    .hero {
-      width: 100%;
-      max-width: 900px;
-      padding: 3rem 2.5rem;
-      background: var(--card-bg);
-      border-radius: 20px;
-      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(12px);
-      border: 1px solid var(--card-border);
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      z-index: 1;
-    }
-    
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(0, 200, 83, 0.1) 0%, transparent 70%);
-      z-index: -1;
-      animation: rotate 20s linear infinite;
-    }
-    
-    @keyframes rotate {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    
-    h1 {
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      font-weight: 700;
-      margin-bottom: 1rem;
-      background: linear-gradient(to right, var(--primary), var(--accent));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      line-height: 1.2;
-    }
-    
-    .tagline {
-      font-size: clamp(1rem, 2vw, 1.2rem);
-      color: var(--text-light);
-      margin-bottom: 2.5rem;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    
-    .buttons {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
-      margin: 2rem 0;
-    }
-    
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0.8rem 2rem;
-      font-size: 1rem;
-      font-weight: 500;
-      text-decoration: none;
-      border-radius: 50px;
-      transition: all 0.3s ease;
-      min-width: 180px;
-      border: none;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      z-index: 1;
-    }
-    
-    .btn-primary {
-      background: linear-gradient(45deg, var(--primary), var(--accent));
-      color: white;
-      box-shadow: 0 4px 20px rgba(0, 200, 83, 0.3);
-    }
-    
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(0, 200, 83, 0.4);
-    }
-    
-    .btn-primary::after {
-      content: '';
-      position: absolute;
+
+    nav {
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      height: 100%;
-      background: linear-gradient(45deg, var(--primary-dark), var(--accent));
-      opacity: 0;
-      transition: opacity 0.3s;
-      z-index: -1;
+      height: var(--nav-height);
+      backdrop-filter: blur(15px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      z-index: 100;
+      display: flex;
+      align-items: center;
     }
-    
-    .btn-primary:hover::after {
-      opacity: 1;
-    }
-    
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--text);
-      backdrop-filter: blur(5px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.1);
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-    }
-    
-    .btn-icon {
-      margin-right: 0.5rem;
-      font-size: 1.2rem;
-    }
-    
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 1rem;
+
+    .nav-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       width: 100%;
-      max-width: 700px;
-      margin: 2rem 0;
     }
-    
-    .feature {
-      background: var(--feature-bg);
-      padding: 1.5rem 1rem;
+
+    .logo {
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: -1px;
+    }
+
+    .hero {
+      padding-top: calc(var(--nav-height) + 4rem);
+      padding-bottom: 2rem;
+      text-align: center;
+      min-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .badge {
+      background: var(--accent-soft);
+      color: var(--accent);
+      padding: 6px 16px;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(0, 255, 163, 0.2);
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 10vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -3px;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 span { color: var(--text-dim); }
+
+    .hero-desc {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--text-dim);
+      max-width: 650px;
+      margin-bottom: 3rem;
+    }
+
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .btn {
+      padding: 1rem 2.5rem;
       border-radius: 12px;
+      font-weight: 700;
+      text-decoration: none;
       text-align: center;
-      transition: transform 0.3s;
-      backdrop-filter: blur(5px);
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
     }
-    
-    .feature:hover {
-      transform: translateY(-5px);
-      background: rgba(0, 200, 83, 0.1);
-    }
-    
-    .feature-icon {
-      font-size: 1.8rem;
-      margin-bottom: 0.5rem;
-      display: inline-block;
-    }
-    
-    .feature-text {
-      font-size: 0.9rem;
-      font-weight: 500;
-    }
-    
-    footer {
-      margin-top: 3rem;
-      text-align: center;
-      font-size: 0.9rem;
-      color: var(--text-light);
-      padding: 1rem;
+
+    .btn-primary { background: var(--text-main); color: var(--bg); }
+    .btn-secondary { background: var(--glass); border: 1px solid rgba(255,255,255,0.1); color: #fff; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin: 4rem 0;
       width: 100%;
     }
-    
-    .version {
-      display: inline-block;
-      background: rgba(0, 200, 83, 0.2);
-      padding: 0.2rem 0.8rem;
-      border-radius: 20px;
-      margin-left: 0.5rem;
-      font-size: 0.8rem;
+
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 2rem;
+      border-radius: 24px;
     }
-    
-    @media (max-width: 768px) {
-      .hero {
-        padding: 2rem 1.5rem;
-      }
-      
-      .buttons {
-        flex-direction: column;
-        width: 100%;
-      }
-      
-      .btn {
-        width: 100%;
-      }
-      
-      .features {
-        grid-template-columns: repeat(2, 1fr);
-      }
+
+    .card i { color: var(--accent); margin-bottom: 1rem; }
+
+    .datetime-container {
+      margin: 4rem 0 2rem;
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px dashed rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--accent);
+      font-size: 1.1rem;
     }
-    
-    /* Animation classes */
-    .fade-in {
-      animation: fadeIn 1s ease-in-out;
+
+    .divider {
+      width: 1px;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.2);
     }
-    
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+
+    footer {
+      padding: 2rem 0 4rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      text-align: center;
+      align-items: center;
+      color: var(--text-dim);
+      font-size: 0.85rem;
     }
-    
-    .delay-1 { animation-delay: 0.2s; }
-    .delay-2 { animation-delay: 0.4s; }
-    .delay-3 { animation-delay: 0.6s; }
-    .delay-4 { animation-delay: 0.8s; }
+
+    footer a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover {
+      color: var(--accent);
+    }
+
+    @media (min-width: 768px) {
+      .actions { flex-direction: row; max-width: none; justify-content: center; }
+      .grid { grid-template-columns: repeat(3, 1fr); }
+      footer { flex-direction: row; justify-content: space-between; text-align: left; }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="hero">
-      <h1 class="fade-in">ELITE-PRO-V1 BOT</h1>
-      <p class="tagline fade-in delay-1">Revolutionary WhatsApp automation with enterprise-grade features and unparalleled performance</p>
-      
-      <div class="buttons">
-        <a href="https://elitepro-website.vercel.app/" target="_blank" class="btn btn-primary fade-in delay-1">
-          <span class="btn-icon">🌐</span> Official Website
-        </a>
-        <a href="https://elitepro-repo.vercel.app/" target="_blank" class="btn btn-secondary fade-in delay-2">
-          <span class="btn-icon">💻</span> GitHub Repo
-        </a>
-        <a href="https://api-eliteproempire.vercel.app/" target="_blank" class="btn btn-secondary fade-in delay-3">
-          <span class="btn-icon">⚙️</span> API Docs
-        </a>
-      </div>
-      
-      <div class="features">
-        <div class="feature fade-in delay-2">
-          <div class="feature-icon">🚀</div>
-          <div class="feature-text">Lightning Fast</div>
-        </div>
-        <div class="feature fade-in delay-3">
-          <div class="feature-icon">🔒</div>
-          <div class="feature-text">Military-grade Security</div>
-        </div>
-        <div class="feature fade-in delay-3">
-          <div class="feature-icon">🤖</div>
-          <div class="feature-text">Smart Automation</div>
-        </div>
-        <div class="feature fade-in delay-4">
-          <div class="feature-icon">📊</div>
-          <div class="feature-text">Advanced Analytics</div>
-        </div>
+
+  <div class="glow"></div>
+
+  <nav>
+    <div class="container nav-content">
+      <div class="logo">ELITE-PRO-V1</div>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span style="width: 8px; height: 8px; background: var(--accent); border-radius: 50%;"></span>
+        <span style="font-size: 0.7rem; font-weight: 700; letter-spacing: 1px;">ACTIVE</span>
       </div>
     </div>
-    
-    <footer class="fade-in delay-4">
-      &copy; 2025 ELITEPRO EMPIRE. All rights reserved. <span class="version">v1.0.0</span>
+  </nav>
+
+  <main class="container">
+    <section class="hero">
+      <div class="badge">New_Generation_WhatsApp_Engine</div>
+      <h1>BOT_<span>LIVE</span></h1>
+      <p class="hero-desc">The bot helps with group and DM management. It also supports downloading and other useful features to make your experience easier.</p>
+      
+      <div class="actions">
+        <a href="https://eliteprotech-host.zone.id" target="_blank" class="btn btn-primary">
+          <i data-lucide="rocket" size="18"></i> Launch Bot
+        </a>
+        <a href="https://github.com/EliteProTech/ELITE-PRO-V1" target="_blank" class="btn btn-secondary">
+          <i data-lucide="github" size="18"></i> View Repository
+        </a>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <i data-lucide="zap" size="24"></i>
+          <h3>Performance</h3>
+          <p>Built on a high-concurrency engine for instant response times.</p>
+        </div>
+        <div class="card">
+          <i data-lucide="lock" size="24"></i>
+          <h3>Secure</h3>
+          <p>End-to-end encryption and stealth protocols come standard.</p>
+        </div>
+        <div class="card">
+          <i data-lucide="code-2" size="24"></i>
+          <h3>Open API</h3>
+          <p>Seamlessly integrate with your existing software stack.</p>
+        </div>
+      </div>
+
+      <div class="datetime-container">
+        <div id="current-time">00:00:00 AM</div>
+        <div class="divider"></div>
+        <div id="current-date">-- / -- / ----</div>
+      </div>
+    </section>
+
+    <footer>
+      <div>&copy; 2026 EliteProTech</div>
+      <div style="display: flex; gap: 24px;">
+        <a href="https://github.com/EliteProTech" target="_blank">GitHub</a>
+        <a href="https://github.com/EliteProTech/ELITE-PRO-V1" target="_blank">Docs</a>
+        <a href="https://whatsapp.com/channel/0029VaXaqHII1rcmdDBBsd3g" target="_blank">Support</a>
+      </div>
     </footer>
-  </div>
+  </main>
+
+  <script>
+    lucide.createIcons();
+
+    function updateDateTime() {
+      const now = new Date();
+      const timeOptions = { 
+        hour: '2-digit', 
+        minute: '2-digit', 
+        second: '2-digit', 
+        hour12: true 
+      };
+      document.getElementById('current-time').textContent = now.toLocaleTimeString('en-US', timeOptions);
+      const dateOptions = { day: '2-digit', month: 'long', year: 'numeric' };
+      document.getElementById('current-date').textContent = now.toLocaleDateString('en-GB', dateOptions);
+    }
+
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
+  </script>
 </body>
 </html>
