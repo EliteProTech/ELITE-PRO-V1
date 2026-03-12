@@ -3,7 +3,7 @@ DON'T FORGET TO FORK 🍴 & STAR 🌟 OUR REPO🫠
 ```
 ---
 
-> **CURRENT BOT VERSION ➜ `1.0.9 ⚡`**
+> **CURRENT BOT VERSION ➜ `1.1.0 ⚡`**
 ---
 
 <a href="https://git.io/typing-svg">
@@ -13,7 +13,7 @@ DON'T FORGET TO FORK 🍴 & STAR 🌟 OUR REPO🫠
 
 <p align="center">
   <a href="https://chat.whatsapp.com/BscdfUpSmJY0OAOWfyPjNs">
-    <img alt=Support weight="10" src="https://eliteprotech-store.vercel.app/img/repo.png"> 
+    <img alt=Support weight="10" src="https://i.ibb.co/KjXhNz6P/repopic.png"> 
     </p>
 <p align="center"> 
     </p>
