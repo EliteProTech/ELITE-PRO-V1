@@ -13,7 +13,7 @@
   "scripts": {
     "start": "node index.js"
   },
-  "author": "cyrilix-xmd",
+  "author": "cyrilix",
   "license": "MIT",
   "dependencies": {
     "baileys": "npm:eliteprotech-baileys@1.0.4",
