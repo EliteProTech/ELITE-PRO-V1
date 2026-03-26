@@ -27,8 +27,6 @@ global.welcome = process.env.WELCOME !== 'false'; // default true
 global.autoreact = process.env.AUTO_REACT === 'true';
 global.autolikestatus = process.env.AUTO_LIKE_STATUS === 'true';
 
-// Thumbnail profile picture
-global.elitepropp = process.env.ELITE_PRO_PP || 'https://i.ibb.co/jk0ynvbn/7a8c4b5b617fa11a1e9a61190f427546.jpg';
 // Default emoji
 global.themeemoji = process.env.THEME_EMOJI || '👨‍💻';
 
@@ -52,8 +50,6 @@ global.mess = {
     wait: '⏳ Processing your request... Please wait a moment.',
     error: '❌ An unexpected error occurred. Please try again later.',
 };
-
-global.thumb = fs.readFileSync('./EliteProMedia/thumb.jpg');
 
 let file = require.resolve(__filename);
 fs.watchFile(file, () => {
