@@ -38,7 +38,7 @@
     "performance-now": "^2.1.0",
     "pino": "^10.1.0",
     "qrcode": "^1.5.3",
-    "qrcode-reader": "^1.0.4",
+    "jsqr": "^1.4.0",
     "translate-google-api": "^1.0.4",
     "yt-search": "^2.10.4",
     "@vitalets/google-translate-api": "^9.2.0",
