@@ -4,12 +4,6 @@
   "description": "A WhatsApp bot with rich features.",
   "main": "index.js",
   "type": "commonjs",
-  "directories": {
-    "lib": "lib",
-    "database": "database",
-    "session": "session",
-    "media": "media"
-  },
   "scripts": {
     "start": "node index.js"
   },
