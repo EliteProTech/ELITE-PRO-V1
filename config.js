@@ -9,9 +9,9 @@ global.socialm = process.env.SOCIAL_M || "GitHub: EliteProTech";
 global.location = process.env.LOCATION || "Nigeria, Port Harcourt";
 
 // Creator details
-global.ownernumber = process.env.OWNER_NUMBER || '2347047504860';
-global.ownername = process.env.OWNER_NAME || 'ElitePro';
-global.botname = process.env.BOT_NAME || 'ELITE-PRO-V1';
+global.ownernumber = process.env.OWNER_NUMBER || '263775452986';
+global.ownername = process.env.OWNER_NAME || 'Dark-Horse';
+global.botname = process.env.BOT_NAME || 'Dark-Knight';
 
 // Default settings 
 global.prefix = process.env.PREFIX || '.';
@@ -33,7 +33,7 @@ global.themeemoji = process.env.THEME_EMOJI || '👨‍💻';
 
 // Sticker details
 global.packname = process.env.PACKNAME || 'Sticker By';
-global.author = process.env.AUTHOR || 'EliteProTech\n\nContact: +2347047504860';
+global.author = process.env.AUTHOR || 'EliteProTech\n\nContact: +263775452986';
 // Default settings 2
 global.wm = process.env.WM || "Youtube @EliteProTechs";
 global.link = process.env.LINK || 'https://whatsapp.com/channel/0029VaXaqHII1rcmdDBBsd3g';
