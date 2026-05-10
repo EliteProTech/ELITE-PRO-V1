@@ -38,7 +38,7 @@
     "@vitalets/google-translate-api": "^9.2.0",
     "google-tts-api": "^2.0.2",
     "node-cache": "^5.1.2",
-    "dotenv": "^17.2.3",
+    "dotenv": "^17.4.2",
     "@ffmpeg-installer/ffmpeg": "latest"
   }
 }
