@@ -10,7 +10,7 @@
   "author": "cyrilix",
   "license": "MIT",
   "dependencies": {
-    "baileys": "npm:eliteprotech-baileys@1.0.5",
+    "baileys": "npm:eliteprotech-baileys@1.0.4",
     "express": "^5.1.0",
     "@hapi/boom": "latest",
     "awesome-phonenumber": "^5.9.0",
