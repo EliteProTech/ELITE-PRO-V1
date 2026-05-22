@@ -51,7 +51,7 @@ DON'T FORGET TO FORK 🍴 & STAR 🌟 OUR REPO🫠
 ---
 
 ## FOR PANEL DEPLOYMENT
-- Click on **[DOWNLOAD](https://eliteproverified.vercel.app/)** to get zip file🗃.
+- Click on **[DOWNLOAD](https://github.com/EliteProTech/ELITE-PRO-V1/archive/refs/heads/main.zip)** to get zip file🗃.
 - Create a server on your panel
 - Upload zip file 🗃️
 - Unzip it and others
