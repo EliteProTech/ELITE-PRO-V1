@@ -50,7 +50,7 @@
       "description": "Block +92 numbers automatically (true or false).",
       "value": "false"
     },
-    "AUTO_SW_VIEW": {
+    "AUTO_VIEW_STATUS": {
       "description": "Auto-view WhatsApp statuses.",
       "value": "false"
     },
