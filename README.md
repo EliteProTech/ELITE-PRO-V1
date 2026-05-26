@@ -3,7 +3,7 @@ DON'T FORGET TO FORK 🍴 & STAR 🌟 OUR REPO🫠
 ```
 ---
 
-> **CURRENT BOT VERSION ➜ `1.1.0 ⚡`**
+> **CURRENT BOT VERSION ➜ `1.1.1 ⚡`**
 ---
 
 <a href="https://git.io/typing-svg">
