@@ -13,7 +13,7 @@ DON'T FORGET TO FORK 🍴 & STAR 🌟 OUR REPO🫠
 
 <p align="center">
   <a href="https://chat.whatsapp.com/BscdfUpSmJY0OAOWfyPjNs">
-    <img alt=Support weight="10" src="https://i.ibb.co/KjXhNz6P/repopic.png"> 
+    <img alt=Support weight="10" src="https://i.ibb.co/2YMygjV5/img-5iovezeh.jpg"> 
     </p>
 <p align="center"> 
     </p>
