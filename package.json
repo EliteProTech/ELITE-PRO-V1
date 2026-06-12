@@ -10,7 +10,7 @@
   "author": "cyrilix",
   "license": "MIT",
   "dependencies": {
-    "baileys": "npm:eliteprotech-baileys@1.0.7",
+    "baileys": "^6.7.23",
     "express": "^5.1.0",
     "@hapi/boom": "latest",
     "awesome-phonenumber": "^5.9.0",
@@ -24,7 +24,7 @@
     "fs-extra": "^11.1.1",
     "libphonenumber-js": "^1.12.8",
     "human-readable": "^0.2.1",
-    "jimp": "^0.16.3",
+    "jimp": "^1.6.0",
     "jsdom": "^22.1.0",
     "moment-timezone": "^0.5.43",
     "node-fetch": "^2.6.11",
