@@ -43,7 +43,7 @@ global.mess = {
     done: '✅ Task completed successfully!',
     prem: '⚠️ Access denied. This feature is for premium users only.',
     admin: '⚠️ Only group admins can use this command.',
-    botAdmin: '⚠️ I need to be an admin in this chat to execute this command.',
+    botAdmin: '⚠️ I need to be a group admin to use this command.',
     owner: '⛔ Command restricted to the bot owner.',
     group: 'ℹ️ This command can only be used in group chats.',
     private: 'ℹ️ This command can only be used in private chats.',
@@ -54,7 +54,7 @@ global.databaseUrl = "https://databaseurl.zone.id";
 let file = require.resolve(__filename);
 fs.watchFile(file, () => {
     fs.unwatchFile(file);
-    console.log(chalk.redBright(`Update'${__filename}'`));
+    console.log(chalk.redBright(`Updated: ${__filename}`));
     delete require.cache[file];
     require(file);
 });
