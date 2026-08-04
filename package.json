@@ -24,7 +24,7 @@
     "fs-extra": "^11.1.1",
     "libphonenumber-js": "^1.12.8",
     "human-readable": "^0.2.1",
-    "jimp": "*",
+    "jimp": "^0.16.3",
     "jsdom": "^22.1.0",
     "moment-timezone": "^0.5.43",
     "node-fetch": "^2.6.11",
