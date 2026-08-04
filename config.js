@@ -50,7 +50,7 @@ global.mess = {
     wait: '⏳ Processing your request... Please wait a moment.',
     error: '❌ An unexpected error occurred. Please try again later.',
 };
-global.databaseUrl = "https://databaseurl.zone.id";
+
 let file = require.resolve(__filename);
 fs.watchFile(file, () => {
     fs.unwatchFile(file);
