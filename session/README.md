@@ -6,4 +6,4 @@
 - Make sure your session is like this **creds.json** after uploading on your repo if not rename it.
 
 ---
-**Visit our website for more.  [ELITEPROTECH](https://eliteprotech.zone.id)**
+**Visit our website for more.  [EliteProTech](https://eliteprotech.zone.id)**
