@@ -12,13 +12,13 @@ DON'T FORGET TO FORK 🍴 & STAR 🌟 OUR REPO🫠
 
 
 <p align="center">
-  <a href="https://chat.whatsapp.com/BscdfUpSmJY0OAOWfyPjNs">
+  <a href="https://chat.whatsapp.com/E8STWOsLagiLgzAkhhliyQ">
     <img alt=Support weight="10" src="https://i.ibb.co/2YMygjV5/img-5iovezeh.jpg"> 
     </p>
 <p align="center"> 
     </p>
 <p align="center">
-  <a aria-label="Join our chats" href="https://chat.whatsapp.com/BscdfUpSmJY0OAOWfyPjNs" target="_blank">
+  <a aria-label="Join our chats" href="https://chat.whatsapp.com/E8STWOsLagiLgzAkhhliyQ" target="_blank">
     <img alt="whatsapp" src="https://img.shields.io/badge/Join Group chat-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" />
     <a align="center">
   <a aria-label="Follow Channel" href="https://whatsapp.com/channel/0029VaXaqHII1rcmdDBBsd3g" target="_blank">
