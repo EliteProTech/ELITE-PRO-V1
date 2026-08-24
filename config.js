@@ -3,15 +3,15 @@ const fs = require('fs');
 const chalk = require('chalk');
 
 // Contact details
-global.sessionid = process.env.SESSION_ID || '{"noiseKey":{"private":{"type":"Buffer","data":"kD5BFsIjRDIYcZhWJOdSzEjle7T6zqvHiM3FY+HUJHU="},"public":{"type":"Buffer","data":"dDR/8BmlVPQZCIasjjnPV7vZx1lv9CHxvyJT2z6tiEQ="}},"pairingEphemeralKeyPair":{"private":{"type":"Buffer","data":"mL+tGBm3IaHjUPK2+0KnhioERpyaNC4cRcmLYb/1wEY="},"public":{"type":"Buffer","data":"oj71rUyKeJwRQRFjD7qIwpHtYYqRi9Kw4di++yXv9hE="}},"signedIdentityKey":{"private":{"type":"Buffer","data":"0Aj0QaFulHIgK/HI49o6BQirgKq5IoIcecutO20ff0E="},"public":{"type":"Buffer","data":"mbdfDkuo9SGqRMGg/yEi3s+oF63jx6BlPJk7eG2OC3A="}},"signedPreKey":{"keyPair":{"private":{"type":"Buffer","data":"KLXT026XjLTHFXPSbPhh5BHEa0TcFtLpcQYdEmyuj2I="},"public":{"type":"Buffer","data":"0CPNvQoLUJYak2KJ5FOGP4gOWcZCw5qMGBDosVKBhBw="}},"signature":{"type":"Buffer","data":"N6EFb3YxpH/+8BDxOAOHI8K1RG+VWzqE/fKOhTybmtahxPzdrMSWjSGlvISSqERpv5DCTf18tyhtADaN2CPTDQ=="},"keyId":1},"registrationId":155,"advSecretKey":"Zt4meXgQ9VzSwYdYXr+I6zmxT1/VsCgmj4TIeNe0v0c=","processedHistoryMessages":[],"nextPreKeyId":31,"firstUnuploadedPreKeyId":31,"accountSyncCounter":0,"accountSettings":{"unarchiveChats":false},"registered":true,"pairingCode":"M64PM7SW","me":{"id":"62887437195264:30@s.whatsapp.net","lid":"178061425254428:30@lid","name":"mnsy"},"account":{"details":"CN/ciYoIEKbnrNQGGAEgACgA","accountSignatureKey":"LlbdrAH1GuxMTJAgSXkZfiofrYK0bnzdj++OUCN1Pkc=","accountSignature":"Uj1bi/JiE/B7tFjGegxnokzdqB23opRWz3eUZLHTBkaiJjX2FP2tOUYCApLcvl4ojoyPaD/SI6rsfaaBEeNwiw==","deviceSignature":"FtO9t/LG71eKjI6DMmBl4DsY2wSz96piqxvAY9bhLhGqPlNg8D6oPXzWYZy2R18CrcWUQBqTLb50Ax+yAqQnCA=="},"signalIdentities":[{"identifier":{"name":"62887437195264:30@s.whatsapp.net","deviceId":0},"identifierKey":{"type":"Buffer","data":"BS5W3awB9RrsTEyQIEl5GX4qH62CtG583Y/vjlAjdT5H"}}],"platform":"iphone","routingInfo":{"type":"Buffer","data":"CA0ICAgC"},"lastAccountSyncTimestamp":1787507632,"myAppStateKeyId":"AAAAAI7v"}';
-global.ytname = process.env.YT_NAME || "YT: @EliteProTechs";
-global.socialm = process.env.SOCIAL_M || "GitHub: EliteProTech";
-global.location = process.env.LOCATION || "Nigeria, Port Harcourt";
+global.sessionid = process.env.SESSION_ID || '{"noiseKey":{"private":{"type":"Buffer","data":"eLbzjXAJE4y3zK2WeY9dSReNnpfF/imzKh9rW7gowGw="},"public":{"type":"Buffer","data":"zTXJI1t8tV+0TFIu/GHfAgTWLkxNBaQuksqMwl36DjU="}},"pairingEphemeralKeyPair":{"private":{"type":"Buffer","data":"4LkkeWxebzgZoKKF+etadw9FKgrwD0uZvzSTB/K1IUc="},"public":{"type":"Buffer","data":"E2vt0wkRBXK62GpNID+sCTrfxHeFiWM87Imf6nylt38="}},"signedIdentityKey":{"private":{"type":"Buffer","data":"YANLgC3D9csa1qB22yDfR+m/nrZYbXBzNw4Crk7qIXk="},"public":{"type":"Buffer","data":"o+r/DLQviSDq/7nAz7LwNMVCy02VtiiSWpEQchzFVlE="}},"signedPreKey":{"keyPair":{"private":{"type":"Buffer","data":"YBYcMmy/9bXngx/6YYuk3Uut99VGf+QLYO12TwkTIkw="},"public":{"type":"Buffer","data":"CJo+TinlV9Iri1t9MTfJrhL92z2wbkkPelrje/ggCko="}},"signature":{"type":"Buffer","data":"2fNfzvy/DRZiG+5X+lA2Pe8ehXIJQ7d2qiQEYuzMN0InmhX/UpJVutdnJpwT1IKjmTlh2RL/WjRjg3E9tmp5hg=="},"keyId":1},"registrationId":48,"advSecretKey":"WwW0X08uAMm0w2/EQA7tgsZyHShDZjw8IOOuJA/Y/7E=","processedHistoryMessages":[],"nextPreKeyId":31,"firstUnuploadedPreKeyId":31,"accountSyncCounter":0,"accountSettings":{"unarchiveChats":false},"registered":true,"pairingCode":"0TJUKLXL","me":{"id":"6285788390394:87@s.whatsapp.net","lid":"49293490688206:87@lid","name":"Scrrr"},"account":{"details":"CO+rt9sMEN6artQGGAQgACgA","accountSignatureKey":"PoPM5VXrmZ56dtYywb/9so4BuGch5eS4H4nIRgi6Jws=","accountSignature":"o98Eio6832QE3AizKc2AEKV4gYK/OLRyPGUJbyaSvvleD905Y1wH9zF38GniuLzrK30hdQrWd267XXHiGPiXBw==","deviceSignature":"LDVvS9cK472XC9d6OBPztOA88NOIGM85RYtL7+cFoKEcmhTFk+13EF7zZEpkG/DnCBUfHtA9YyYv3FfstQPvhA=="},"signalIdentities":[{"identifier":{"name":"6285788390394:87@s.whatsapp.net","deviceId":0},"identifierKey":{"type":"Buffer","data":"BT6DzOVV65meenbWMsG//bKOAbhnIeXkuB+JyEYIuicL"}}],"platform":"iphone","routingInfo":{"type":"Buffer","data":"CAUIDQgS"},"lastAccountSyncTimestamp":1787530598,"myAppStateKeyId":"AAAAAF5k"}';
+global.ytname = process.env.YT_NAME || "YouTube: -";
+global.socialm = process.env.SOCIAL_M || "GitHub: -";
+global.location = process.env.LOCATION || "Nigeria, -";
 
 // Creator details
-global.ownernumber = process.env.OWNER_NUMBER || '2347047504860';
-global.ownername = process.env.OWNER_NAME || 'ElitePro';
-global.botname = process.env.BOT_NAME || 'ELITE-PRO-V1';
+global.ownernumber = process.env.OWNER_NUMBER || '6285788390394';
+global.ownername = process.env.OWNER_NAME || 'Scarlatte';
+global.botname = process.env.BOT_NAME || '☁️Columbina Bot☁️';
 
 // Default settings 
 global.prefix = process.env.PREFIX || '.';
@@ -33,10 +33,10 @@ global.themeemoji = process.env.THEME_EMOJI || '👨‍💻';
 
 // Sticker details
 global.packname = process.env.PACKNAME || 'Sticker By';
-global.author = process.env.AUTHOR || 'EliteProTech\n\nContact: +2347047504860';
+global.author = process.env.AUTHOR || 'Scarlatte\n\nContact: +6285788390394';
 // Default settings 2
-global.wm = process.env.WM || "Youtube @EliteProTechs";
-global.link = process.env.LINK || 'https://whatsapp.com/channel/0029VaXaqHII1rcmdDBBsd3g';
+global.wm = process.env.WM || "Youtube -";
+global.link = process.env.LINK || '-';
 
 // Reply messages
 global.mess = {
