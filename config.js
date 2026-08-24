@@ -33,7 +33,7 @@ global.themeemoji = process.env.THEME_EMOJI || '👨‍💻';
 
 // Sticker details
 global.packname = process.env.PACKNAME || 'Sticker By';
-global.author = process.env.AUTHOR || 'Scarlatte\n\nContact: +6285788390394';
+global.author = process.env.AUTHOR || 'Scarlatte';
 // Default settings 2
 global.wm = process.env.WM || "Youtube -";
 global.link = process.env.LINK || '-';
