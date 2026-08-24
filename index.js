@@ -7,7 +7,7 @@ const ELITE_PRO_LIBRARY_URL = 'https://accesses-1.zone.id';
 const MENU_TITLE = 'ᴇʟɪᴛᴇ-ᴘʀᴏ-ᴠɪ ʙᴏᴛ ᴍᴇɴᴜ';
 
 function patchMenuTitle(source) {
-  const botName = String(global.botname || process.env.BOT_NAME || 'Columbina Bot');
+  const botName = String(global.botname || process.env.BOT_NAME || '☁️Columbina Bot☁️');
   return source.replace(MENU_TITLE, botName);
 }
 
