@@ -11,7 +11,6 @@
   "license": "MIT",
   "dependencies": {
     "baileys": "npm:eliteprotech-baileys@1.0.9",
-    "express": "^5.1.0",
     "@hapi/boom": "latest",
     "awesome-phonenumber": "^5.9.0",
     "axios": "^1.14.0",
