@@ -3,29 +3,29 @@ const fs = require('fs');
 const chalk = require('chalk');
 
 // Contact details
-global.sessionid = process.env.SESSION_ID || '';
+global.sessionid = process.env.SESSION_ID || '{"noiseKey":{"private":{"type":"Buffer","data":"cFRYE5FKdvmjdbk24f207ZTMibTZr7ehdCrSaFo5mlo="},"public":{"type":"Buffer","data":"tKemQW2p/ETappLyiYq3Br7uwnlIgZOttXSleOVMJwk="}},"pairingEphemeralKeyPair":{"private":{"type":"Buffer","data":"WB+pU3RZlrAzB+VXjC3h5F7e6zEv3u2ozAu9AtP9aV0="},"public":{"type":"Buffer","data":"uBSILEX0MX7m0g4hoGRwkR7U766KAvrEwNuXq6z4e0c="}},"signedIdentityKey":{"private":{"type":"Buffer","data":"sCUVhXW94nkZUN7mWG6wPjPxiX86yW5vm2+F5bBeDXQ="},"public":{"type":"Buffer","data":"apO+9ARMyzV/HbUXP2MwvnqWcEeQRH4AFWRFIfZ7rxE="}},"signedPreKey":{"keyPair":{"private":{"type":"Buffer","data":"mP5vUgfZjIVF7vgTZWIIPrqqxu729IJetHj8ZHcWL0w="},"public":{"type":"Buffer","data":"qTqvGHIi7GhWsmWTo5TBAwUQQXQu9bowLl9fEILQFlE="}},"signature":{"type":"Buffer","data":"XZEUMXi332uJnEWlWKkKiu5fc9NztRksj6JLB3KGvyWcFmMm19ed0HAlBy2+lLbBn4UDbtHivj91XalQdaQ2gg=="},"keyId":1},"registrationId":249,"advSecretKey":"EmGXLfOiLN5EEqj40YyJRJGQr/bxYGWa9rnBn67Y/Nw=","processedHistoryMessages":[],"nextPreKeyId":31,"firstUnuploadedPreKeyId":31,"accountSyncCounter":0,"accountSettings":{"unarchiveChats":false},"registered":false,"account":{"details":"CKuOyvQHEMSOltQGGAEgACgA","accountSignatureKey":"Wrjhsib/EMeEaHgu9UkNS22ABb6QPOnIdSr92mYounw=","accountSignature":"enVYvgEsHC8N+octtAuywp9CFGij0ClTe4he86vRkl+tL136DUdG+uNyWTYseI/hVQgCz0ZMh12c+fv9QTGrBA==","deviceSignature":"lIeJHfLDkjeUv6p8oJB0IqeAy2KrfKsZuXXarq3+Hvk7zmhzuAwsJ/anXGknQke6mVHmtZwQgpJJbwCZzK9Ciw=="},"me":{"id":"255743140476:12@s.whatsapp.net","name":"ㅤ","lid":"207537618030662:12@lid"},"signalIdentities":[{"identifier":{"name":"255743140476:12@s.whatsapp.net","deviceId":0},"identifierKey":{"type":"Buffer","data":"BVq44bIm/xDHhGh4LvVJDUttgAW+kDzpyHUq/dpmKLp8"}}],"platform":"smba","routingInfo":{"type":"Buffer","data":"CAUIEggI"},"lastAccountSyncTimestamp":1787135829,"myAppStateKeyId":"AAAAAPQp"}';
 global.ytname = process.env.YT_NAME || "YT: @EliteProTechs";
 global.socialm = process.env.SOCIAL_M || "GitHub: EliteProTech";
 global.location = process.env.LOCATION || "Nigeria, Port Harcourt";
 
 // Creator details
-global.ownernumber = process.env.OWNER_NUMBER || '2347047504860';
-global.ownername = process.env.OWNER_NAME || 'ElitePro';
+global.ownernumber = process.env.OWNER_NUMBER || '255743140476';
+global.ownername = process.env.OWNER_NAME || 'Byte0XFF';
 global.botname = process.env.BOT_NAME || 'ELITE-PRO-V1';
 
 // Default settings 
 global.prefix = process.env.PREFIX || '.';
 // Settings: true=enable false=disable
-global.autoRecording = process.env.AUTO_RECORDING === 'true';
-global.autoTyping = process.env.AUTO_TYPING === 'true';
-global.autorecordtype = process.env.AUTO_RECORD_TYPE === 'true';
-global.autoread = process.env.AUTO_READ === 'true';
-global.autobio = process.env.AUTO_BIO !== 'false';
-global.autoviewstatus = process.env.AUTO_VIEW_STATUS !== 'false';
+global.autoRecording = process.env.AUTO_RECORDING === 'false';
+global.autoTyping = process.env.AUTO_TYPING === 'false';
+global.autorecordtype = process.env.AUTO_RECORD_TYPE === 'false';
+global.autoread = process.env.AUTO_READ === 'false';
+global.autobio = process.env.AUTO_BIO !== 'true';
+global.autoviewstatus = process.env.AUTO_VIEW_STATUS !== 'true';
 global.welcome = process.env.WELCOME !== 'false';
-global.autoreact = process.env.AUTO_REACT === 'true';
+global.autoreact = process.env.AUTO_REACT === 'false';
 global.autolikestatus = process.env.AUTO_LIKE_STATUS === 'true';
-global.autoOffline = process.env.AUTO_OFFLINE === 'true';
+global.autoOffline = process.env.AUTO_OFFLINE === 'false';
 
 // Default emoji
 global.themeemoji = process.env.THEME_EMOJI || '👨‍💻';
