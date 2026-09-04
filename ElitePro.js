@@ -4625,7 +4625,7 @@ case 'poll': {
 }
 case 'panel': {
     const coinMenu = `🪙 *EliteProTech Bot Hosting — Coin Purchase Menu* 
-🌐 *eliteprotech-hosts.zone.id*
+🌐 *eliteprotech-host.zone.id*
 
 Purchase hosting coins at *affordable prices*.  
 *Require 30 coins to deploy*
@@ -4688,7 +4688,7 @@ You can deploy your bot on any of the hosting sites below:
 https://eliteprotech.zone.id/minibot
 
 *AdvanceBot - Paid*
-https://eliteprotech-hosts.zone.id`;
+https://eliteprotech-host.zone.id`;
     
     reply(msg);
 }
