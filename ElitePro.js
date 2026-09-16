@@ -446,7 +446,7 @@ case 'tiktok': {
         });
 
         if (text.startsWith("http")) {
-            const apiUrl = `https://eliteprotech-apis.zone.id/tiktok2?url=${encodeURIComponent(text)}`;
+            const apiUrl = `https://eliteprotech-apis.zone.id/download/tiktok2?url=${encodeURIComponent(text)}`;
             const { data } = await axios.get(apiUrl);
 
             if (!data.success || !data.data) {
@@ -482,7 +482,7 @@ case 'tiktok': {
                 { quoted: m }
             );
         }
-        const searchUrl = `https://eliteprotech-apis.zone.id/tiktoksearch?q=${encodeURIComponent(text)}`;
+        const searchUrl = `https://eliteprotech-apis.zone.id/search/tiktoksearch?q=${encodeURIComponent(text)}`;
         const { data } = await axios.get(searchUrl);
 
         if (data?.error || !data?.results?.length) {
@@ -520,7 +520,7 @@ case 'tiktokstalk': case 'tiktoksearch': {
     try {
         await EliteProTech.sendMessage(m.chat, { react: { text: "🔍", key: m.key } });
         
-        const apiUrl = `https://eliteprotech-apis.zone.id/tiktokstalk?username=${encodeURIComponent(text)}`;
+        const apiUrl = `https://eliteprotech-apis.zone.id/search/tiktokstalk?username=${encodeURIComponent(text)}`;
         const { data } = await axios.get(apiUrl);
         
         if (!data || data.status !== "success" || !data.data) {
@@ -561,7 +561,7 @@ case 'mediafire': {
     try {
         await EliteProTech.sendMessage(m.chat, { react: { text: `📥`, key: m?.key } });
         
-        const apiUrl = `https://eliteprotech-apis.zone.id/mediafire?url=${encodeURIComponent(text)}`;
+        const apiUrl = `https://eliteprotech-apis.zone.id/download/mediafire?url=${encodeURIComponent(text)}`;
         const { data } = await axios.get(apiUrl);
 
         if (data?.status && data?.download) {
@@ -766,7 +766,7 @@ case 'ytmp3': {
                 caption: body
             }, { quoted: m });
         }
-        const apiUrl = `https://eliteprotech-apis.zone.id/ytmp3?url=${encodeURIComponent(videoUrl)}`;
+        const apiUrl = `https://eliteprotech-apis.zone.id/download/ytmp3?url=${encodeURIComponent(videoUrl)}`;
         const { data } = await axios.get(apiUrl, {
             timeout: 120000
         });
@@ -937,7 +937,7 @@ case 'chatgpt': {
             },
             { quoted: m }
         );
-        const apiUrl = `https://eliteprotech-apis.zone.id/chatgpt?prompt=${encodeURIComponent(userMessage)}`;
+        const apiUrl = `https://eliteprotech-apis.zone.id/ai/chatgpt?prompt=${encodeURIComponent(userMessage)}`;
         const { data } = await axios.get(apiUrl, {
             timeout: 60000
         });
@@ -970,7 +970,7 @@ case 'lyrics': {
     if (!q) return reply('Please provide a song name. Usage: .lyrics <song name>');
     
     try {
-        const url = `https://eliteprotech-apis.zone.id/lyrics?query=${encodeURIComponent(q)}`;
+        const url = `https://eliteprotech-apis.zone.id/search/lyrics?query=${encodeURIComponent(q)}`;
         const { data } = await axios.get(url);
         
         if (!data.success || !data.result || data.result.length === 0) {
@@ -1226,7 +1226,7 @@ case 'welcome': {
 break
 case 'insult': {
     try {
-        const res = await fetch('https://eliteprotech-apis.zone.id/insult')
+        const res = await fetch('https://eliteprotech-apis.zone.id/fun/insult')
         
         if (!res.ok) {
             throw new Error(`API request failed with status ${res.status}`)
@@ -1301,7 +1301,7 @@ case 'screenshot': {
     })
 
     try {
-        const apiUrl = `https://eliteprotech-apis.zone.id/ssweb?url=${encodeURIComponent(url)}`
+        const apiUrl = `https://eliteprotech-apis.zone.id/tools/ssweb?url=${encodeURIComponent(url)}`
 
         await EliteProTech.sendMessage(
             m.chat,
@@ -1471,7 +1471,7 @@ case 'song': {
 
         videoTitle = video.title;
 
-        const apiUrl = `https://eliteprotech-apis.zone.id/ytaudio?url=${encodeURIComponent(videoUrl)}`;
+        const apiUrl = `https://eliteprotech-apis.zone.id/download/ytaudio?url=${encodeURIComponent(videoUrl)}`;
 
         const { data } = await axios.get(apiUrl);
 
@@ -1598,7 +1598,7 @@ case 'bible': {
         }
         
         const query = encodeURIComponent(text)
-        const url = `https://eliteprotech-apis.zone.id/bible?q=${query}`
+        const url = `https://eliteprotech-apis.zone.id/search/bible?q=${query}`
         
         const { data } = await axios.get(url)
         
@@ -1892,7 +1892,7 @@ case 'splay': {
             spotifyUrl = first.trackUrl
         }
 
-        const apiUrl = `https://eliteprotech-apis.zone.id/spotify?url=${encodeURIComponent(spotifyUrl)}`
+        const apiUrl = `https://eliteprotech-apis.zone.id/download/spotify?url=${encodeURIComponent(spotifyUrl)}`
         const { data } = await axios.get(apiUrl)
 
         if (!data || !data.success) {
@@ -2409,7 +2409,7 @@ case 'pinterest': {
     }
     try {
         if (text.includes("pinterest.com") || text.includes("pin.it")) {
-            let apiUrl = `https://eliteprotech-apis.zone.id/pinterest?url=${encodeURIComponent(text)}`;
+            let apiUrl = `https://eliteprotech-apis.zone.id/download/pinterest?url=${encodeURIComponent(text)}`;
             let res = await fetchJson(apiUrl);
 
             if (!res || !res.status || !res.media) {
@@ -2691,7 +2691,7 @@ case 'img': {
         react: { text: '⏳', key: m.key }
     })
     const res = await axios.get(
-        `https://eliteprotech-apis.zone.id/bingimg?q=${encodeURIComponent(text)}`
+        `https://eliteprotech-apis.zone.id/image/bingimg?q=${encodeURIComponent(text)}`
     )
     if (
         !res.data?.status ||
@@ -2866,7 +2866,7 @@ case 'removebg': {
       );
     }
 
-    const apiUrl = `https://eliteprotech-apis.zone.id/removebg?url=${encodeURIComponent(imgUrl)}`;
+    const apiUrl = `https://eliteprotech-apis.zone.id/tools/removebg?url=${encodeURIComponent(imgUrl)}`;
     const response = await axios.get(apiUrl);
     const data = response.data;
 
@@ -2924,7 +2924,7 @@ case 'img2txt': {
       );
     }
 
-    const apiUrl = `https://eliteprotech-apis.zone.id/ocr?url=${encodeURIComponent(imgUrl)}`;
+    const apiUrl = `https://eliteprotech-apis.zone.id/tools/ocr?url=${encodeURIComponent(imgUrl)}`;
     const res = await axios.get(apiUrl);
     const json = res.data;
 
@@ -2993,7 +2993,7 @@ case 'wasted': {
       );
     }
 
-    const apiUrl = `https://eliteprotech-apis.zone.id/wasted?url=${encodeURIComponent(imgUrl)}`;
+    const apiUrl = `https://eliteprotech-apis.zone.id/fun/wasted?url=${encodeURIComponent(imgUrl)}`;
     const response = await axios.get(apiUrl);
     const data = response.data;
 
@@ -3064,7 +3064,7 @@ case 'upscale': {
       );
     }
 
-    const apiUrl = `https://eliteprotech-apis.zone.id/upscaler?url=${encodeURIComponent(imgUrl)}`;
+    const apiUrl = `https://eliteprotech-apis.zone.id/tools/upscaler?url=${encodeURIComponent(imgUrl)}`;
 
     // 🔥 IMPORTANT FIX: get image as buffer
     const response = await axios.get(apiUrl, {
@@ -3231,7 +3231,7 @@ case 'fb': {
     });
 
     try {
-        const apiUrl = `https://eliteprotech-apis.zone.id/facebook2?url=${encodeURIComponent(text)}`;
+        const apiUrl = `https://eliteprotech-apis.zone.id/download/facebook2?url=${encodeURIComponent(text)}`;
         const { data } = await axios.get(apiUrl);
 
         if (data?.status === true && data?.video) {
@@ -3303,7 +3303,7 @@ case 'igstory': {
             ppUrl = 'https://raw.githubusercontent.com/uploader762/dat4/main/uploads/e0f993-1777126212302.jpg';
         }
 
-        const apiUrl = `https://eliteprotech-apis.zone.id/fakeigstory?text=${encodeURIComponent(storyText)}&name=${encodeURIComponent(name)}&pp=${encodeURIComponent(ppUrl)}`;
+        const apiUrl = `https://eliteprotech-apis.zone.id/fun/fakeigstory?text=${encodeURIComponent(storyText)}&name=${encodeURIComponent(name)}&pp=${encodeURIComponent(ppUrl)}`;
 
         await EliteProTech.sendMessage(m.chat, {
             image: { url: apiUrl },
@@ -3337,7 +3337,7 @@ case 'ig': {
         react: { text: "📥", key: m.key }
     });
     try {
-        const apiUrl = `https://eliteprotech-apis.zone.id/instagram?url=${encodeURIComponent(text)}`;
+        const apiUrl = `https://eliteprotech-apis.zone.id/download/instagram?url=${encodeURIComponent(text)}`;
         const { data } = await axios.get(apiUrl, {
             timeout: 30000
         });
@@ -3682,7 +3682,7 @@ case 'aio': {
     await EliteProTech.sendMessage(m.chat, { react: { text: `📥`, key: m?.key } });
     
     try {
-        const apiUrl = `https://eliteprotech-apis.zone.id/aio?url=${encodeURIComponent(text)}`;
+        const apiUrl = `https://eliteprotech-apis.zone.id/download/aio?url=${encodeURIComponent(text)}`;
         const { data } = await axios.get(apiUrl);
         
         if (data.success && data.download_links?.length) {
@@ -3706,64 +3706,12 @@ case 'aio': {
     
     break;
 }
-case 'aivideo': {
-    if (!text) return reply(`🎬 *Example:* ${prefix + command} A man walking`);
-    
-    try {
-        await EliteProTech.sendMessage(m.chat, { react: { text: `🎥`, key: m.key } });
-        
-        // Build API URL
-        const api = `https://eliteprotech-apis.zone.id/aivideo?q=${encodeURIComponent(text)}&type=video`;
-        const response = await axios.get(api);
-        
-        if (!response.data?.success || !response.data.result?.url) {
-            return reply(`❌ *Failed to generate AI video.* Please try again later.`);
-        }
-        
-        const videoUrl = response.data.result.url;
-        
-        // Send video with caption
-        await EliteProTech.sendMessage(m.chat, {
-            video: { url: videoUrl },
-            caption: `🎥 *AI Generated Video*\n> *Prompt:* ${text}\n> *ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴇʟɪᴛᴇ-ᴘʀᴏ-ᴛᴇᴄʜ*`,
-            gifPlayback: false
-        }, { quoted: m });
-        
-    } catch (error) {
-        console.error("❌ Error in aivideo command:", error);
-        reply(`❌ *Error generating AI video.*\nPlease try again later.`);
-    }
-    break;
-}
-case 'aivideo2': {
-    if (!text) return reply(`Please provide a prompt to generate the AI video.\n\n*Example:* ${prefix + command} A man going home`);
-    
-    try {
-        const axios = require("axios");
-        let res = await axios.get(`https://eliteprotech-apis.zone.id/aivideo2?q=${encodeURIComponent(text)}`);
-        
-        if (!res.data || !res.data.success) {
-            return reply("Failed to generate AI video. Please try again later.");
-        }
-        
-        // Send the video with caption
-        await EliteProTech.sendMessage(m.chat, {
-            video: { url: res.data.url },
-            caption: `🎥 *AI Video Generated*\n*Prompt:* ${res.data.prompt}`
-        }, { quoted: m });
-        
-    } catch (err) {
-        console.error(err);
-        reply("An error occurred while generating the AI video.");
-    }
-}
-break
 case 'firelogo': {
     if (!text) return reply(`Please provide text to generate the fire logo.\n\n*Example:* ${prefix + command} EliteProTech users`);
     
     try {
         const axios = require("axios");
-        let res = await axios.get(`https://eliteprotech-apis.zone.id/firelogo?text=${encodeURIComponent(text)}`);
+        let res = await axios.get(`https://eliteprotech-apis.zone.id/fun/firelogo?text=${encodeURIComponent(text)}`);
         
         if (!res.data || !res.data.success) {
             return reply("Failed to generate fire logo. Please try again later.");
@@ -3788,7 +3736,7 @@ case 'create': {
         await EliteProTech.sendMessage(m.chat, {
             react: { text: "🖼️", key: m.key }
         });
-        const imageUrl = `https://eliteprotech-apis.zone.id/zonerai?prompt=${encodeURIComponent(q)}`;
+        const imageUrl = `https://eliteprotech-apis.zone.id/ai/zonerai?prompt=${encodeURIComponent(q)}`;
         await EliteProTech.sendMessage(
             m.chat,
             {
@@ -3924,7 +3872,7 @@ ${prefix}elevenlab mrbeast hello world
     // Handle "list" command
     if (q.trim().toLowerCase() === "list") {
         try {
-            const res = await fetch("https://eliteprotech-apis.zone.id/elevenlab?list=true");
+            const res = await fetch("https://eliteprotech-apis.zone.id/tools/elevenlab?list=true");
             const data = await res.json();
             if (!data.success) return reply("❌ Failed to load voice list.");
             const voices = data.voices.join(", ");
@@ -3951,7 +3899,7 @@ ${prefix}elevenlab mrbeast hello world`
         // ⏳ React while generating
         await EliteProTech.sendMessage(m.chat, { react: { text: "⏳", key: m.key } });
 
-        const apiUrl = `https://eliteprotech-apis.zone.id/elevenlab?q=${encodeURIComponent(text)}&voicename=${encodeURIComponent(voice)}`;
+        const apiUrl = `https://eliteprotech-apis.zone.id/tools/elevenlab?q=${encodeURIComponent(text)}&voicename=${encodeURIComponent(voice)}`;
         const res = await fetch(apiUrl);
         const data = await res.json();
 
@@ -4186,7 +4134,7 @@ case 'shazam': {
         if (!audioUrl) {
             return reply(`❌ Please reply to an *audio or video* or provide a direct URL.\n\n*Example:*\n${prefix}shazam (reply to an audio or video)`);
         }
-        const { data } = await axios.get(`https://eliteprotech-apis.zone.id/shazam?url=${encodeURIComponent(audioUrl)}`);
+        const { data } = await axios.get(`https://eliteprotech-apis.zone.id/tools/shazam?url=${encodeURIComponent(audioUrl)}`);
         if (!data?.success || !data?.data) {
             return reply('❌ Could not identify the song.');
         }
@@ -4401,7 +4349,7 @@ case 'story': {
         await EliteProTech.sendMessage(m.chat, {
             react: { text: "📖", key: m.key }
         });
-        const apiUrl = `https://eliteprotech-apis.zone.id/story?text=${encodeURIComponent(text)}`;
+        const apiUrl = `https://eliteprotech-apis.zone.id/ai/story?text=${encodeURIComponent(text)}`;
         const response = await axios.get(apiUrl);
         if (!response.data || !response.data.success) {
             return reply("❌ Failed to generate story. Try again later.");
@@ -4567,9 +4515,9 @@ case 'nsfw': {
         let apiURL;
 
         if (!text) {
-            apiURL = "https://eliteprotech-apis.zone.id/nsfw?random=true";
+            apiURL = "https://eliteprotech-apis.zone.id/download/nsfw?random=true";
         } else {
-            apiURL = `https://eliteprotech-apis.zone.id/nsfw?s=${encodeURIComponent(text)}`;
+            apiURL = `https://eliteprotech-apis.zone.id/download/nsfw?s=${encodeURIComponent(text)}`;
         }
 
         await EliteProTech.sendMessage(m.chat, { react: { text: "🎥", key: m.key } });
@@ -4625,7 +4573,7 @@ case 'session': case 'pair': {
     try {
         await EliteProTech.sendMessage(m.chat, { react: { text: "⏳", key: m.key } });
         
-        const apiUrl = `https://eliteprotech-apis.zone.id/pair?number=${encodeURIComponent(text)}`;
+        const apiUrl = `https://eliteprotech-apis.zone.id/tools/pair?number=${encodeURIComponent(text)}`;
         const response = await axios.get(apiUrl);
         
         if (response.data && response.data.code) {
@@ -4678,7 +4626,7 @@ case 'twit': {
     
     try {
         const axios = require("axios");
-        const api = `https://eliteprotech-apis.zone.id/x?url=${url}`;
+        const api = `https://eliteprotech-apis.zone.id/download/x?url=${url}`;
         
         const { data } = await axios.get(api);
         
@@ -4735,7 +4683,7 @@ case 'apk': {
 
     try {
         const { data } = await axios.get(
-            `https://eliteprotech-apis.zone.id/apk?q=${encodeURIComponent(text)}`
+            `https://eliteprotech-apis.zone.id/download/apk?q=${encodeURIComponent(text)}`
         );
 
         if (!data?.status || !Array.isArray(data.results) || !data.results.length) {
@@ -5066,7 +5014,7 @@ case 'vocalremover': {
     }
 
     const apiUrl =
-      `https://eliteprotech-apis.zone.id/vocalremove` +
+      `https://eliteprotech-apis.zone.id/tools/vocalremove` +
       `?url=${encodeURIComponent(audioUrl)}`;
 
     const { data } = await axios.get(apiUrl);
@@ -5160,7 +5108,7 @@ case 'colorize': {
     }
 
     const apiUrl =
-      `https://eliteprotech-apis.zone.id/colorize` +
+      `https://eliteprotech-apis.zone.id/image/colorize` +
       `?url=${encodeURIComponent(imgUrl)}` +
       `&prompt=${encodeURIComponent(prompt)}`;
 
@@ -5238,7 +5186,7 @@ case 'deepfake': {
     }
 
     const apiUrl =
-      `https://eliteprotech-apis.zone.id/deepfake` +
+      `https://eliteprotech-apis.zone.id/image/deepfake` +
       `?prompt=${encodeURIComponent(prompt)}` +
       `&imageUrl=${encodeURIComponent(imgUrl)}`;
 
@@ -5312,7 +5260,7 @@ case 'fdroid': {
       react: { text: '🔍', key: m.key }
     })
 
-    const apiUrl = `https://eliteprotech-apis.zone.id/fdriod?q=${encodeURIComponent(text)}`
+    const apiUrl = `https://eliteprotech-apis.zone.id/download/fdriod?q=${encodeURIComponent(text)}`
     const { data } = await axios.get(apiUrl)
 
     if (!data?.success || !data.result) {
@@ -5479,7 +5427,7 @@ break
 case 'tempemail':
 case 'tempmail': {
     try {
-        const { data } = await axios.get('https://eliteprotech-apis.zone.id/tempemail')
+        const { data } = await axios.get('https://eliteprotech-apis.zone.id/tools/tempemail')
 
         if (!data?.success || !data.email) {
             return reply('❌ Failed to generate temporary email.')
@@ -5510,7 +5458,7 @@ case 'tempinbox': {
         }
 
         const { data } = await axios.get(
-            `https://eliteprotech-apis.zone.id/tempemail?email=${encodeURIComponent(text)}`
+            `https://eliteprotech-apis.zone.id/tools/tempemail?email=${encodeURIComponent(text)}`
         )
 
         if (!data?.success) {
@@ -5591,7 +5539,7 @@ case 'copilot': {
             react: { text: "🔍", key: m.key }
         })
         
-        const apiUrl = `https://eliteprotech-apis.zone.id/copilot?q=${encodeURIComponent(text)}`
+        const apiUrl = `https://eliteprotech-apis.zone.id/ai/copilot?q=${encodeURIComponent(text)}`
         const { data } = await axios.get(apiUrl)
         
         if (!data || !data.success) {
@@ -5781,7 +5729,7 @@ case 'imagine': {
         })
 
         const { data } = await axios.get(
-            `https://eliteprotech-apis.zone.id/imagine?prompt=${encodeURIComponent(q)}`,
+            `https://eliteprotech-apis.zone.id/ai/imagine?prompt=${encodeURIComponent(q)}`,
             { responseType: 'arraybuffer' }
         )
 
@@ -5819,7 +5767,7 @@ case 'analyze': {
         
         fs.unlinkSync(tempPath)
         
-        const apiUrl = `https://eliteprotech-apis.zone.id/analyze?url=${encodeURIComponent(imageUrl)}&question=${encodeURIComponent(q)}`
+        const apiUrl = `https://eliteprotech-apis.zone.id/ai/analyze?url=${encodeURIComponent(imageUrl)}&question=${encodeURIComponent(q)}`
         const { data } = await axios.get(apiUrl)
         
         if (!data.status) {
@@ -5952,7 +5900,7 @@ case 'country': case 'countries': {
         });
 
         const { data } = await axios.get(
-            `https://eliteprotech-apis.zone.id/countries?q=${encodeURIComponent(q)}`
+            `https://eliteprotech-apis.zone.id/search/countries?q=${encodeURIComponent(q)}`
         );
 
         if (!data.status || !data.result) {
@@ -6322,7 +6270,7 @@ case 'aivoice': {
         }
         await EliteProTech.sendPresenceUpdate('recording', m.chat);
         const aiRes = await axios.get(
-            `https://eliteprotech-apis.zone.id/gpt?prompt=${encodeURIComponent(query)}`
+            `https://eliteprotech-apis.zone.id/ai/gpt?prompt=${encodeURIComponent(query)}`
         );
         if (!aiRes.data?.success || !aiRes.data?.response) {
             return reply('❌ Failed to generate AI response.');
@@ -6826,7 +6774,7 @@ Use ${prefix + command} list to view all currencies.`);
         });
 
         const apiUrl =
-            `https://eliteprotech-apis.zone.id/money?amount=${encodeURIComponent(amount)}&from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`;
+            `https://eliteprotech-apis.zone.id/search/money?amount=${encodeURIComponent(amount)}&from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`;
 
         const { data } = await axios.get(apiUrl);
 
@@ -7401,7 +7349,7 @@ case 'carbon': {
             return reply(`Example:\n${prefix}carbon console.log("Hello World")\n\nOr reply to any text message with:\n${prefix}carbon`)
         }
 
-        const apiUrl = `https://eliteprotech-apis.zone.id/carbon?code=${encodeURIComponent(text)}`
+        const apiUrl = `https://eliteprotech-apis.zone.id/image/carbon?code=${encodeURIComponent(text)}`
 
         await EliteProTech.sendMessage(
             m.chat,
@@ -7746,7 +7694,7 @@ case 'image2pdf': {
             .map(url => `url=${encodeURIComponent(url)}`)
             .join('&');
         const apiUrl =
-            `https://eliteprotech-apis.zone.id/img2pdf?${query}`;
+            `https://eliteprotech-apis.zone.id/tools/img2pdf?${query}`;
         const response = await axios.get(apiUrl, {
             responseType: 'arraybuffer',
             timeout: 120000
