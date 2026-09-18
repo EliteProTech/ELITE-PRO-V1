@@ -1,3 +1,4 @@
 {
-  "mode": "private"
+  "mode": "private",
+  "prefix": "."
 }
