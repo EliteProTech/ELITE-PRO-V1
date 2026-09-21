@@ -45,8 +45,8 @@ DON'T FORGET TO FORK 🍴 & STAR 🌟 OUR REPO🫠
 
 
 ## DEPLOYMENT METHODS
-- Upload SESSION_ID (creds.json) on session folder or add it to your .env file: SESSION_ID=
-- Edit .env to your Choice.
+- Add your session ID to SESSION_ID in the .env or config.js file.
+- Edit the .env file according to your preferences.
 
 ---
 
