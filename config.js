@@ -4,6 +4,7 @@ const chalk = require('chalk');
 
 // Contact details
 global.sessionid = process.env.SESSION_ID || '';
+global.dbSite = process.env.DB_SITE || '';
 global.ytname = process.env.YT_NAME || "YT: @EliteProTechs";
 global.socialm = process.env.SOCIAL_M || "GitHub: EliteProTech";
 global.location = process.env.LOCATION || "Nigeria, Port Harcourt";
@@ -25,11 +26,7 @@ global.autoviewstatus = process.env.AUTO_VIEW_STATUS !== 'false';
 global.welcome = process.env.WELCOME !== 'false';
 global.autoreact = process.env.AUTO_REACT === 'true';
 global.autolikestatus = process.env.AUTO_LIKE_STATUS === 'true';
-global.autolikestatusEmoji = process.env.AUTO_LIKE_EMOJI || '💚';
 global.autoOffline = process.env.AUTO_OFFLINE === 'true';
-
-// Default emoji
-global.themeemoji = process.env.THEME_EMOJI || '👨‍💻';
 
 
 // Sticker details
