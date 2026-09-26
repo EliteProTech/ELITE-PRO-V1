@@ -10,12 +10,10 @@ global.socialm = process.env.SOCIAL_M || "GitHub: EliteProTech";
 global.location = process.env.LOCATION || "Nigeria, Port Harcourt";
 
 // Creator details
-global.ownernumber = process.env.OWNER_NUMBER || '2347047504860';
+global.prefix = process.env.PREFIX || '.';
 global.ownername = process.env.OWNER_NAME || 'ElitePro';
 global.botname = process.env.BOT_NAME || 'ELITE-PRO-V1';
 
-// Default settings 
-global.prefix = process.env.PREFIX || '.';
 // Settings: true=enable false=disable
 global.autoRecording = process.env.AUTO_RECORDING === 'true';
 global.autoTyping = process.env.AUTO_TYPING === 'true';
