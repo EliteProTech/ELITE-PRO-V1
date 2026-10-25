@@ -10,7 +10,7 @@
   "author": "cyrilix",
   "license": "MIT",
   "dependencies": {
-    "baileys": "^7.0.0-rc13",
+    "baileys": "^7.0.0-rc12",
     "awesome-phonenumber": "^5.9.0",
     "axios": "^1.14.0",
     "gifted-btns": "^1.0.2",
