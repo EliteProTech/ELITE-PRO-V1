@@ -1001,6 +1001,113 @@ async function handleAntiLink(EliteProTech, mek) {
         console.error('❌ Error in anti-link detection:', err.message)
     }
 }	
+//ANTISPAM//
+const spamTracker = new Map()
+const spamSeen = new Set()
+async function handleAntiSpam(EliteProTech, mek) {
+    try {
+        if (!mek?.message || !mek?.key || mek.key.fromMe) return
+        const from = mek.key.remoteJid
+        if (!from?.endsWith('@g.us')) return
+        if (mek.message.protocolMessage || mek.message.reactionMessage) return
+
+        if (spamSeen.has(mek.key.id)) return
+        spamSeen.add(mek.key.id)
+        setTimeout(() => spamSeen.delete(mek.key.id), 60000)
+
+        let data = {}
+        try { data = JSON.parse(fs.readFileSync('./database/antispam.json', 'utf8')) } catch { return }
+        const cfg = data[from]
+        if (!cfg?.enabled) return
+                const sender = mek.key.participant || mek.participant
+        if (!sender) return
+
+        const limit = cfg.limit || 5
+        const windowMs = (cfg.seconds || 8) * 1000
+        const now = Date.now()
+        const trackKey = `${from}:${sender}`
+
+        const list = (spamTracker.get(trackKey) || []).filter(e => now - e.ts < windowMs)
+        list.push({ ts: now, key: mek.key })
+        spamTracker.set(trackKey, list)
+        if (list.length <= limit) return
+
+        // Over the limit: only now do the (cached) metadata checks
+        const metadata = await EliteProTech.groupMetadata(from)
+        const participants = metadata.participants || []
+        const matches = (p, id) => id && (p.id === id || p.lid === id || p.jid === id || p.phoneNumber === id)
+
+        const senderP = participants.find(p => matches(p, sender))
+        const botIds = [EliteProTech.user?.id, EliteProTech.user?.lid]
+            .filter(Boolean).map(i => i.replace(/:\d+/, ''))
+        const botP = participants.find(p => botIds.some(b => matches(p, b)))
+
+        const senderNums = [sender, senderP?.jid, senderP?.phoneNumber, senderP?.pn]
+            .filter(Boolean).map(x => x.split('@')[0])
+        const isOwner = Array.isArray(owner) &&
+            owner.some(n => senderNums.includes(String(n).replace(/[^0-9]/g, '')))
+
+        if (senderP?.admin || isOwner || botIds.some(b => sender === b)) {
+            spamTracker.delete(trackKey)
+            return
+        }
+        if (!botP?.admin) return
+        const keys = list.map(e => e.key)
+        spamTracker.delete(trackKey) // reset so the next burst is judged fresh
+
+        for (const k of keys) {
+            await EliteProTech.sendMessage(from, { delete: k }).catch(() => {})
+            await new Promise(r => setTimeout(r, 300))
+        }
+
+        const tag = `@${sender.split('@')[0]}`
+        const removeId = senderP?.id || sender
+        const mode = cfg.action || 'warn'
+
+        if (mode === 'delete') {
+            await EliteProTech.sendMessage(from, {
+                text: `🚫 ${tag} stop spamming. Messages deleted.`,
+                mentions: [sender]
+            })
+        } else if (mode === 'kick') {
+            await EliteProTech.groupParticipantsUpdate(from, [removeId], 'remove')
+            await EliteProTech.sendMessage(from, {
+                text: `🚫 ${tag} was removed for spamming.`,
+                mentions: [sender]
+            })
+        } else {
+            cfg.warnings = cfg.warnings || {}
+            cfg.warnings[sender] = (cfg.warnings[sender] || 0) + 1
+            const count = cfg.warnings[sender]
+            const max = cfg.maxWarn || 3
+
+            if (count >= max) {
+                await EliteProTech.groupParticipantsUpdate(from, [removeId], 'remove')
+                await EliteProTech.sendMessage(from, {
+                    text: `🚫 ${tag} was removed for spamming (${max}/${max} warnings).`,
+                    mentions: [sender]
+                })
+                delete cfg.warnings[sender]
+            } else {
+                await EliteProTech.sendMessage(from, {
+                    text: `⚠️ ${tag} stop spamming. Warning ${count}/${max}`,
+                    mentions: [sender]
+                })
+            }
+            fs.writeFileSync('./database/antispam.json', JSON.stringify(data, null, 2))
+        }
+    } catch (err) {
+        console.error('❌ AntiSpam error:', err.message)
+    }
+}
+setInterval(() => {
+    const now = Date.now()
+    for (const [k, list] of spamTracker) {
+        if (!list.length || now - list[list.length - 1].ts > 60000) spamTracker.delete(k)
+    }
+}, 5 * 60 * 1000)
+////AntiSpam ends here///
+	
 //CHANNEL AUTOREACT//
 const CHANNEL_ID = "120363287352245413@newsletter"
 async function handleChannelReact(EliteProTech, mek) {
@@ -1277,6 +1384,7 @@ EliteProTech.ev.on('messages.update', async updates => {
         console.error('[ANTI-DELETE] Failed to process deletion update:', err.message)
     }
 })
+	
 
 EliteProTech.ev.on('messages.upsert', async chatUpdate => {
     try {
