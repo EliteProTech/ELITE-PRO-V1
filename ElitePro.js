@@ -8835,48 +8835,40 @@ case 'kick': {
     }
 
     let target;
-
     if (m.mentionedJid[0]) {
         target = m.mentionedJid[0];
     } else if (m.quoted) {
         target = m.quoted.sender;
     } else {
-        let number = text.replace(/[^0-9]/g, '');
-        target = number + '@s.whatsapp.net';
+        const digits = text.replace(/[^0-9]/g, '');
+        if (!digits) return reply('❌ Invalid number.');
+        target = digits + '@s.whatsapp.net';
     }
-
-    const metadata = await EliteProTech.groupMetadata(m.chat);
-    const participants = metadata.participants || [];
-
-    let realJid = target;
-
-    for (let p of participants) {
-        if (
-            p.id === target ||
-            p.lid === target ||
-            p.jid === target
-        ) {
-            realJid = p.jid || p.pn;
-            break;
-        }
-    }
-
-    if (realJid.endsWith('@lid')) {
-        let found = participants.find(p => p.id === realJid);
-        if (found) realJid = found.jid || found.pn;
-    }
-
-    let number = realJid.split('@')[0];
 
     try {
-        await EliteProTech.groupParticipantsUpdate(m.chat, [realJid], 'remove');
-        reply(`✅ ${number} has been removed successfully!`);
+        const metadata = await EliteProTech.groupMetadata(m.chat);
+        const members = metadata.participants || [];
+
+        // Find the member whichever ID format was given (lid or phone jid)
+        const member = members.find(p =>
+            p.id === target || p.lid === target || p.jid === target || p.phoneNumber === target
+        );
+
+        if (!member) return reply('❌ That user is not in this group.');
+
+        // Use the ID the group itself uses; fall back to the target
+        const removeId = member.id || target;
+        const shownNumber = (member.phoneNumber || member.jid || removeId).split('@')[0];
+
+        if (member.admin) return reply('❌ I can\'t kick an admin. Demote them first.');
+
+        await EliteProTech.groupParticipantsUpdate(m.chat, [removeId], 'remove');
+        reply(`✅ ${shownNumber} has been removed successfully!`);
     } catch (e) {
         console.error(e);
-        reply('❌ Failed to remove user. They might have left already or have privacy settings enabled.');
+        reply('❌ Failed to remove user. They might have left already or I lack permission.');
     }
-    break;
-}
+    break		
 case 'add': {
     if (!m.isGroup) return reply(mess.group);
     if (!isAdmins && !isGroupOwner && !isCreator) return reply(mess.admin);
