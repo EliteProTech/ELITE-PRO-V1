@@ -1108,6 +1108,127 @@ setInterval(() => {
 }, 5 * 60 * 1000)
 ////AntiSpam ends here///
 	
+//ANTIBOT//
+const botSeen = new Set()
+const botWarnCooldown = new Set()
+const BOT_PREFIX_CHARS = ',*@/?!>.&√#$%+~_=|\\:;^-'
+const PREFIX_CMD_REGEX = new RegExp(`^[${BOT_PREFIX_CHARS.replace(/[\]\\^-]/g, '\\$&')}]+[a-zA-Z]{2,}`)
+
+const looksLikeBotId = (key) => {
+    const id = key?.id || ''
+    const sender = key?.participant || ''
+    return /^BAE5.{12}$/.test(id) ||
+           /^3EB0[0-9A-F]{36}$/i.test(id) ||
+           sender.endsWith('@bot')
+}
+
+const getPlainText = (message) => {
+    const c = extractMessageContent(message) || message || {}
+    return (c.conversation || c.extendedTextMessage?.text || c.imageMessage?.caption ||
+            c.videoMessage?.caption || c.documentMessage?.caption || '').trim()
+}
+
+const looksLikePrefixCommand = (text) => {
+    if (!text) return false
+    const own = global.prefix
+    if (own && text.startsWith(own)) return false          // never touch our own bot's commands
+    if (!PREFIX_CMD_REGEX.test(text)) return false
+    if (text.startsWith('*') && text.indexOf('*', 1) > 0) return false   // *bold text*
+    return true
+}
+
+async function handleAntiBot(EliteProTech, mek) {
+    try {
+        if (!mek?.message || !mek?.key || mek.key.fromMe) return
+        const from = mek.key.remoteJid
+        if (!from?.endsWith('@g.us')) return
+        if (mek.message.protocolMessage || mek.message.reactionMessage) return
+
+        const byId = looksLikeBotId(mek.key)
+        const text = getPlainText(mek.message)
+        const byPrefix = looksLikePrefixCommand(text)
+        if (!byId && !byPrefix) return
+
+        if (botSeen.has(mek.key.id)) return
+        botSeen.add(mek.key.id)
+        setTimeout(() => botSeen.delete(mek.key.id), 60000)
+
+        let data = {}
+        try { data = JSON.parse(fs.readFileSync('./database/antibot.json', 'utf8')) } catch { return }
+        const cfg = data[from]
+        if (!cfg?.enabled) return
+        if (!byId && !cfg.prefix) return   // prefix rule is off
+
+        const sender = mek.key.participant || mek.participant
+        if (!sender) return
+        const metadata = await EliteProTech.groupMetadata(from)
+        const participants = metadata.participants || []
+        const matches = (p, id) => id && (p.id === id || p.lid === id || p.jid === id || p.phoneNumber === id)
+
+        const senderP = participants.find(p => matches(p, sender))
+        const botIds = [EliteProTech.user?.id, EliteProTech.user?.lid]
+            .filter(Boolean).map(i => i.replace(/:\d+/, ''))
+        const botP = participants.find(p => botIds.some(b => matches(p, b)))
+
+        const senderNums = [sender, senderP?.jid, senderP?.phoneNumber, senderP?.pn]
+            .filter(Boolean).map(x => x.split('@')[0])
+        const isOwner = Array.isArray(owner) &&
+            owner.some(n => senderNums.includes(String(n).replace(/[^0-9]/g, '')))
+
+        if (senderP?.admin || isOwner || botIds.some(b => sender === b)) return
+        if (!botP?.admin) return
+
+        await EliteProTech.sendMessage(from, { delete: mek.key })
+            .then(() => console.log('[antibot] deleted message'))
+            .catch(e => console.log('[antibot] delete failed:', e.message))
+
+        const tag = `@${sender.split('@')[0]}`
+        const removeId = senderP?.id || sender
+        let mode = cfg.action || 'delete'
+        if (!byId && mode === 'kick') mode = 'warn'   // never kick a human just for typing a prefix
+
+        if (mode === 'delete') return
+
+        if (mode === 'kick') {
+            await EliteProTech.groupParticipantsUpdate(from, [removeId], 'remove')
+            await EliteProTech.sendMessage(from, {
+                text: `🤖 ${tag} was removed. Bots are not allowed in this group.`,
+                mentions: [sender]
+            })
+            return
+        }
+
+        const cdKey = `${from}:${sender}`
+        if (botWarnCooldown.has(cdKey)) return
+        botWarnCooldown.add(cdKey)
+        setTimeout(() => botWarnCooldown.delete(cdKey), 10000)
+
+        cfg.warnings = cfg.warnings || {}
+        cfg.warnings[sender] = (cfg.warnings[sender] || 0) + 1
+        const count = cfg.warnings[sender]
+        const max = cfg.maxWarn || 3
+        const reason = byId ? 'bots are not allowed in this group' : 'other bot commands are not allowed in this group'
+
+        if (count >= max) {
+            await EliteProTech.groupParticipantsUpdate(from, [removeId], 'remove')
+            await EliteProTech.sendMessage(from, {
+                text: `🚫 ${tag} was removed (${max}/${max} warnings).`,
+                mentions: [sender]
+            })
+            delete cfg.warnings[sender]
+        } else {
+            await EliteProTech.sendMessage(from, {
+                text: `⚠️ ${tag} ${reason}. Warning ${count}/${max}`,
+                mentions: [sender]
+            })
+        }
+        fs.writeFileSync('./database/antibot.json', JSON.stringify(data, null, 2))
+    } catch (err) {
+        console.error('❌ AntiBot error:', err.message)
+    }
+}
+///Antibot ends here////
+	
 //CHANNEL AUTOREACT//
 const CHANNEL_ID = "120363287352245413@newsletter"
 async function handleChannelReact(EliteProTech, mek) {
