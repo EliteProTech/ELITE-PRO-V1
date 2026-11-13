@@ -845,7 +845,7 @@ ${history}
         `.trim()
         await EliteProTech.sendPresenceUpdate('composing',from)
         await new Promise(resolve=>setTimeout(resolve,1000))
-        const apiUrl=`https://eliteprotech-apis.zone.id/deepai?prompt=${encodeURIComponent(text)}`
+        const apiUrl=`https://eliteprotech-apis.zone.id/ai/talkai?q=${encodeURIComponent(text)}`
         const response=await axios.get(apiUrl,{headers:{Accept:'*/*','User-Agent':'Mozilla/5.0'},timeout:30000})
         const botReply=response?.data?.success&&response?.data?.response?response.data.response:'I couldn’t generate a reply at this time. Please try again.'
         await EliteProTech.sendPresenceUpdate('paused',from)
@@ -1000,7 +1000,7 @@ async function handleAntiLink(EliteProTech, mek) {
     } catch (err) {
         console.error('❌ Error in anti-link detection:', err.message)
     }
-}
+}	
 //CHANNEL AUTOREACT//
 const CHANNEL_ID = "120363287352245413@newsletter"
 async function handleChannelReact(EliteProTech, mek) {
