@@ -9802,6 +9802,124 @@ case 'emptychat':
         { quoted: m }
 )
 break
+case 'antispam': {
+    if (!m.isGroup) return reply(mess.group)
+    if (!isAdmins && !isGroupOwner && !isCreator) return reply(mess.admin)
+    if (!isBotAdmins) return reply(mess.botAdmin)
+
+    const spamFile = './database/antispam.json'
+    let spamData = {}
+    try { spamData = JSON.parse(fs.readFileSync(spamFile, 'utf8')) } catch {}
+    if (!spamData[m.chat]) {
+        spamData[m.chat] = { enabled: false, action: 'warn', limit: 5, seconds: 8, maxWarn: 3, warnings: {} }
+    }
+    const cfg = spamData[m.chat]
+    const save = () => fs.writeFileSync(spamFile, JSON.stringify(spamData, null, 2))
+    const opt = (args[0] || '').toLowerCase()
+
+    if (!opt) {
+        return reply(`🛡️ *ANTISPAM SETTINGS*
+
+Status: *${cfg.enabled ? 'ON' : 'OFF'}*
+Action: *${cfg.action.toUpperCase()}*
+Trigger: more than *${cfg.limit}* messages in *${cfg.seconds}s*
+Warnings before kick: *${cfg.maxWarn}*
+
+${prefix}antispam on / off
+${prefix}antispam action delete / warn / kick
+${prefix}antispam limit 5
+${prefix}antispam time 8
+${prefix}antispam warns 3
+
+Admins, owners and the bot are never affected.`)
+    }
+
+    if (opt === 'on') {
+        cfg.enabled = true; cfg.warnings = {}; save()
+        return reply(`✅ Antispam enabled: more than ${cfg.limit} messages in ${cfg.seconds}s triggers *${cfg.action}*.`)
+    }
+    if (opt === 'off') {
+        cfg.enabled = false; cfg.warnings = {}; save()
+        return reply('❌ Antispam disabled.')
+    }
+    if (opt === 'action') {
+        const a = (args[1] || '').toLowerCase()
+        if (!['delete', 'warn', 'kick'].includes(a)) return reply('❌ Use: delete, warn or kick')
+        cfg.action = a; save()
+        return reply(`⚙️ Antispam action set to *${a.toUpperCase()}*`)
+    }
+    if (opt === 'limit') {
+        const n = parseInt(args[1])
+        if (!n || n < 2 || n > 30) return reply('❌ Limit must be between 2 and 30.')
+        cfg.limit = n; save()
+        return reply(`🔢 Limit set to *${n}* messages.`)
+    }
+    if (opt === 'time') {
+        const n = parseInt(args[1])
+        if (!n || n < 2 || n > 60) return reply('❌ Time must be between 2 and 60 seconds.')
+        cfg.seconds = n; save()
+        return reply(`⏱️ Window set to *${n}* seconds.`)
+    }
+    if (opt === 'warns') {
+        const n = parseInt(args[1])
+        if (!n || n < 1 || n > 10) return reply('❌ Warns must be between 1 and 10.')
+        cfg.maxWarn = n; save()
+        return reply(`⚠️ Members are removed after *${n}* warnings.`)
+    }
+    return reply(`❌ Invalid option. Use ${prefix}antispam to see the options.`)
+}
+break		
+case 'antibot': {
+    if (!m.isGroup) return reply(mess.group)
+    if (!isAdmins && !isGroupOwner && !isCreator) return reply(mess.admin)
+
+    const botFile = './database/antibot.json'
+    let botData = {}
+    try { botData = JSON.parse(fs.readFileSync(botFile, 'utf8')) } catch {}
+    if (!botData[m.chat]) botData[m.chat] = { enabled: false, action: 'delete', maxWarn: 3, prefix: false, warnings: {} }
+    const cfg = botData[m.chat]
+    const save = () => fs.writeFileSync(botFile, JSON.stringify(botData, null, 2))
+    const opt = (args[0] || '').toLowerCase()
+
+    if (!opt) {
+        return reply(`🤖 *ANTIBOT SETTINGS*
+
+Status: *${cfg.enabled ? 'ON' : 'OFF'}*
+Action: *${cfg.action.toUpperCase()}*
+Prefix commands: *${cfg.prefix ? 'ON' : 'OFF'}*
+Warnings before kick: *${cfg.maxWarn}*
+
+${prefix}antibot on / off
+${prefix}antibot action delete / warn / kick
+${prefix}antibot prefix on / off
+${prefix}antibot warns 3
+
+Admins, owners and this bot are never affected.`)
+    }
+
+    if (opt === 'on') { cfg.enabled = true; cfg.warnings = {}; save(); return reply(`✅ Antibot enabled. Action: *${cfg.action}*`) }
+    if (opt === 'off') { cfg.enabled = false; cfg.warnings = {}; save(); return reply('❌ Antibot disabled.') }
+    if (opt === 'action') {
+        const a = (args[1] || '').toLowerCase()
+        if (!['delete', 'warn', 'kick'].includes(a)) return reply('❌ Use: delete, warn or kick')
+        cfg.action = a; save()
+        return reply(`⚙️ Antibot action set to *${a.toUpperCase()}*`)
+    }
+    if (opt === 'prefix') {
+        const v = (args[1] || '').toLowerCase()
+        if (!['on', 'off'].includes(v)) return reply(`Use: ${prefix}antibot prefix on / off`)
+        cfg.prefix = v === 'on'; save()
+        return reply(`✅ Prefix command blocking is now *${v.toUpperCase()}*`)
+    }
+    if (opt === 'warns') {
+        const n = parseInt(args[1])
+        if (!n || n < 1 || n > 10) return reply('❌ Warns must be between 1 and 10.')
+        cfg.maxWarn = n; save()
+        return reply(`⚠️ Members are removed after *${n}* warnings.`)
+    }
+    return reply(`❌ Invalid option. Use ${prefix}antibot to see the options.`)
+}
+break		
 case 'menu':
 let timestampe = speed()
 let latensie = speed() - timestampe
