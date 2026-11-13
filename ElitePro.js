@@ -4791,6 +4791,119 @@ case 'apk': {
     }
 }
 break
+case 'device':
+case 'getdevice': {
+    if (!m.quoted) return reply(`Reply to a user's message with *${prefix + command}*`)
+
+    const msgId = m.quoted.id || m.quoted.key?.id || ''
+    if (!msgId) return reply('❌ Could not read the message.')
+
+    const getDeviceType = (id) => {
+        if (/^3A.{18}$/.test(id)) return 'iPhone (iOS)'
+        if (/^3EB0.{16,}$/.test(id) || /^3E.{20}$/.test(id)) return 'WhatsApp Web'
+        if (/^(.{21}|.{32})$/.test(id)) return 'Android'
+        if (/^3F/.test(id) || /^.{18}$/.test(id)) return 'Desktop app'
+        return 'Unknown'
+    }
+
+    const getMessageType = (q) => {
+        const type = q.mtype || ''
+        const isVoice = q.ptt || q.msg?.ptt
+
+        const types = {
+            conversation: 'Text',
+            extendedTextMessage: 'Text',
+            imageMessage: 'Image',
+            videoMessage: 'Video',
+            audioMessage: isVoice ? 'Voice note' : 'Audio',
+            stickerMessage: 'Sticker',
+            documentMessage: 'Document',
+            contactMessage: 'Contact',
+            contactsArrayMessage: 'Contacts',
+            locationMessage: 'Location',
+            liveLocationMessage: 'Live location',
+            pollCreationMessage: 'Poll',
+            reactionMessage: 'Reaction',
+            viewOnceMessage: 'View once',
+            viewOnceMessageV2: 'View once'
+        }
+
+        return types[type] || type.replace(/Message$/, '') || 'Unknown'
+    }
+
+    const device = getDeviceType(msgId)
+    const msgType = getMessageType(m.quoted)
+    const target = m.quoted.sender || m.sender
+
+    await EliteProTech.sendMessage(m.chat, {
+        text: `📱 *Device Detector*\n\n👤 User: @${target.split('@')[0]}\n📟 Device: *${device}*\n💬 Message Type: *${msgType}*`,
+        mentions: [target]
+    }, { quoted: m })
+}
+break
+case 'ship': {
+    if (!m.isGroup) return reply(mess.group)
+
+    let users = [...(m.mentionedJid || [])]
+    if (m.quoted?.sender && !users.includes(m.quoted.sender)) users.push(m.quoted.sender)
+
+    if (users.length === 0) {
+        return reply(`💘 Example:\n${prefix + command} @user1 @user2\n${prefix + command} @user (ships you with them)`)
+    }
+    if (users.length === 1) users.unshift(m.sender)
+
+    const [a, b] = users
+    if (a === b) return reply('😂 You can\'t ship someone with themselves. Self love is good though.')
+
+    // Same pair always gets the same result
+    const seed = [a, b].sort().join('|')
+    let hash = 0
+    for (const ch of seed) hash = (hash * 31 + ch.charCodeAt(0)) >>> 0
+    const pct = hash % 101
+
+    const pick = (arr) => arr[hash % arr.length]
+
+    let verdict
+    if (pct === 100) verdict = pick([
+        'Perfect match. Somebody call the pastor. 💍',
+        'Soulmates confirmed. The universe has spoken. ✨'
+    ])
+    else if (pct >= 80) verdict = pick([
+        'Wedding date loading... 🎉',
+        'Start saving for the aso ebi. 😂',
+        'This one is serious. Even the group admins are shipping it. 🔥'
+    ])
+    else if (pct >= 60) verdict = pick([
+        'Not bad. Add a little effort and it works. 😏',
+        'There\'s something here. Someone should shoot their shot. 👀',
+        'Good chemistry. Just stop sending "hi" and disappearing. 😅'
+    ])
+    else if (pct >= 40) verdict = pick([
+        'Friendzone has entered the chat. 🫠',
+        'Could work, but only with a lot of data and prayers. 📶',
+        'Maybe. Maybe not. The bot is confused too. 🤔'
+    ])
+    else if (pct >= 20) verdict = pick([
+        'Better keep this one as a business partnership. 💼',
+        'Even Wi-Fi has a better connection than this. 📡',
+        'One of you is already texting somebody else. 🏃'
+    ])
+    else verdict = pick([
+        'Run. Don\'t walk. 💀',
+        'Even a network error would work better than this match. ❌',
+        'The bot refuses to be part of this. 🚫',
+        'Oil and water had a better chance. 🛢️'
+    ])
+
+    const filled = Math.round(pct / 10)
+    const bar = '❤️'.repeat(filled) + '🖤'.repeat(10 - filled)
+
+    await EliteProTech.sendMessage(m.chat, {
+        text: `💘 *SHIP METER* 💘\n\n@${a.split('@')[0]} ❤️ @${b.split('@')[0]}\n\n${bar}\n*${pct}%*\n\n${verdict}\n\n> *ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴇʟɪᴛᴇ-ᴘʀᴏ-ᴛᴇᴄʜ©*`,
+        mentions: [a, b]
+    }, { quoted: m })
+}
+break		
 case 'poll': {
     try {
         if (!q) return reply(`*Usage:* ${prefix}poll PollName;Option1;Option2;Option3`);
@@ -9782,6 +9895,8 @@ ${readmore}┏━━━━━━━━━━━━━━━❍
 │𖥟╾ Welcome
 │𖥟╾ Antilink
 │𖥟╾ Tagadmin
+│𖥟╾ Antibot
+│𖥟╾ Antispam 
 ┗━━━━━━━━━━━━━❍
 ┏━━━━━━━━━━━━━━━❍
 ┗┳❍「 *AI* 」❍
@@ -9887,6 +10002,7 @@ ${readmore}┏━━━━━━━━━━━━━━━❍
 │𖥟╾ Country
 │𖥟╾ Telegramsticker
 │𖥟╾ Rate 
+│𖥟╾ Ship
 ┗━━┳━━━━━━━━━━❍
 ┏━━┻━━━━━━━━━━━━❍
 ┗┳❍ 「 *DOWNLOADS* 」 ❍
@@ -9951,6 +10067,7 @@ ${readmore}┏━━━━━━━━━━━━━━━❍
 │𖥟╾ Tempmail
 │𖥟╾ Tempinbox
 │𖥟╾ Poll
+│𖥟╾ Getdevice 
 │𖥟╾ Channel-id
 │𖥟╾ Group-id
 │𖥟╾ Pair [session-id]
