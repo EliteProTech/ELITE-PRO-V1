@@ -1511,7 +1511,13 @@ EliteProTech.ev.on('messages.upsert', async chatUpdate => {
     try {
         const { messages, type } = chatUpdate
         if (type !== 'notify') return
-        for (const incomingMessage of messages) {
+		for (const msg of messages) {
+            const ts = Number(msg.messageTimestamp?.low ?? msg.messageTimestamp ?? 0) * 1000
+            if (ts && ts < BOT_START_TIME) continue
+            handleAntiSpam(EliteProTech, msg)
+            handleAntiBot(EliteProTech, msg)
+        }
+		for (const incomingMessage of messages) {
             if (!incomingMessage?.message || !incomingMessage?.key?.id) continue
             const mek = {
                 ...incomingMessage,
