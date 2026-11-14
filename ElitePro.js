@@ -8868,7 +8868,8 @@ case 'kick': {
         console.error(e);
         reply('❌ Failed to remove user. They might have left already or I lack permission.');
     }
-    break		
+    break	
+}
 case 'add': {
     if (!m.isGroup) return reply(mess.group);
     if (!isAdmins && !isGroupOwner && !isCreator) return reply(mess.admin);
