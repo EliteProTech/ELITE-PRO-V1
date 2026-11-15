@@ -3546,44 +3546,41 @@ break
 case 'jid': {
     try {
         let targetJid;
-        
-        // If mentioned
-        if (m.mentionedJid && m.mentionedJid.length > 0) {
+
+        if (m.mentionedJid?.length) {
             targetJid = m.mentionedJid[0];
-        }
-        // If quoted
-        else if (m.quoted) {
+        } else if (m.quoted?.sender) {
             targetJid = m.quoted.sender;
-        }
-        // Otherwise, group or private
-        else {
+        } else {
             targetJid = m.chat;
         }
-        
-        // If it's a group, get real JID from metadata
-        if (m.isGroup) {
+
+        if (m.isGroup && targetJid !== m.chat) {
             const meta = await EliteProTech.groupMetadata(m.chat);
+
             const found = meta.participants.find(p =>
-                p.id === targetJid || p.lid === targetJid || p.jid === targetJid
+                p.id === targetJid ||
+                p.lid === targetJid ||
+                p.phoneNumber === targetJid
             );
-            
-            if (found && found.jid) targetJid = found.jid;
-            else targetJid = meta.id; // group JID fallback
+
+            if (found) {
+                targetJid = found.phoneNumber || found.jid || found.id;
+            }
         }
-        
-        // Decode if LID
+
         const realJid = await EliteProTech.decodeJid(targetJid);
-        
+
         await EliteProTech.sendMessage(m.chat, {
-            text: realJid
+            text: realJid || targetJid
         }, { quoted: m });
-        
+
     } catch (err) {
-        console.error(err);
-        reply(`❌ Failed to get JID.`);
+        console.error('JID Command Error:', err);
+        reply('❌ Failed to get JID.');
     }
 }
-break;
+break		
 case 'lid': {
     try {
         let targetLid;
