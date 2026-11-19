@@ -856,7 +856,7 @@ case 'ytmp3': {
                 caption: body
             }, { quoted: m });
         }
-        const apiUrl = `https://eliteprotech-apis.zone.id/download/ytmp3?url=${encodeURIComponent(videoUrl)}`;
+        const apiUrl = `https://api-abztech.zone.id/download/ytmp3?url=${encodeURIComponent(videoUrl)}`;
         const { data } = await axios.get(apiUrl, {
             timeout: 120000
         });
@@ -1543,7 +1543,7 @@ case 'song': {
             videoUrl = video.url;
         }
         videoTitle = video.title;
-        const apiUrl = `https://eliteprotech-apis.zone.id/download/ytmp3?url=${encodeURIComponent(videoUrl)}`;
+        const apiUrl = `https://api-abztech.zone.id/download/ytmp3?url=${encodeURIComponent(videoUrl)}`;
         const { data } = await axios.get(apiUrl);
         if (data?.status && data?.download?.downloadUrl) {
             const downloadUrl = data.download.downloadUrl;
@@ -9749,10 +9749,29 @@ reply(`\`\`\`「 FLIP TEXT 」\`\`\`\n*•> Normal :*\n${quere}\n*•> Flip :*\n
 break
 case 'addowner': case 'addsudo': {
 if (!isCreator) return reply(mess.owner)
+// Same order as kick: mentioned user, then replied-to message, then typed number/LID
+const targetJid = m.mentionedJid?.[0] || m.quoted?.sender
 const rawOwner = q.split("|")[0].trim().toLowerCase()
-if (!rawOwner) return reply(`Use ${prefix + command} number or LID\nExamples:\n${prefix + command} 2347047504860\n${prefix + command} 123456789@lid`)
+if (!targetJid && !rawOwner) return reply(`Reply to a user, mention them, or use ${prefix + command} number or LID\nExamples:\n${prefix + command} 2347047504860\n${prefix + command} 123456789@lid`)
 let ownerId
-if (isLidOwnerId(rawOwner)) {
+let lidAlias = ''
+if (targetJid) {
+    // Turn the replied/mentioned user into a phone number (falls back to the LID if no number is found)
+    const id = normalizeOwnerId(targetJid)
+    if (!isLidOwnerId(id)) {
+        ownerId = id.split('@')[0]
+    } else {
+        lidAlias = id
+        let pn = ''
+        const member = participants.find(p => [p?.id, p?.lid, p?.jid, p?.phoneNumber, p?.pn].some(x => x && normalizeOwnerId(x) === id))
+        if (member) pn = normalizeOwnerId(member.phoneNumber || member.jid || member.pn || '')
+        if (!pn || isLidOwnerId(pn)) {
+            try { pn = normalizeOwnerId(await EliteProTech.signalRepository?.lidMapping?.getPNForLID?.(id) || '') } catch { pn = '' }
+        }
+        ownerId = (pn && !isLidOwnerId(pn)) ? pn.split('@')[0] : id
+    }
+    if (!ownerId) return reply('❌ Could not read that user\'s ID. Try typing their number instead.')
+} else if (isLidOwnerId(rawOwner)) {
     ownerId = normalizeOwnerId(rawOwner)
     if (!/^\d+@(?:hosted\.)?lid$/.test(ownerId)) return reply('Use a valid LID, for example: 123456789@lid')
 } else {
@@ -9761,7 +9780,7 @@ if (isLidOwnerId(rawOwner)) {
     const ceknye = await EliteProTech.onWhatsApp(ownerId)
     if (ceknye.length === 0) return reply('Enter a valid WhatsApp number')
 }
-if (owner.includes(ownerId)) return reply('That owner is already added')
+if (owner.includes(ownerId) || (lidAlias && owner.includes(lidAlias))) return reply('That owner is already added')
 owner.push(ownerId)
 _owner.push(ownerId)
 writeOwnerList()
@@ -9770,16 +9789,38 @@ reply(`✅ ${ownerId} is now an owner`)
 break
 case 'delowner': case 'deletesudo': case 'deleteowner': {
 if (!isCreator) return reply(mess.owner)
+// Same order as kick: mentioned user, then replied-to message, then typed number/LID
+const targetJid = m.mentionedJid?.[0] || m.quoted?.sender
 const rawOwner = q.split("|")[0].trim().toLowerCase()
-if (!rawOwner) return reply(`Use ${prefix + command} number or LID`)
-const ownerId = isLidOwnerId(rawOwner) ? normalizeOwnerId(rawOwner) : rawOwner.replace(/[^0-9]/g, '')
-const index = owner.indexOf(ownerId)
-if (index === -1) return reply('That owner was not found')
-owner.splice(index, 1)
-const cacheIndex = _owner.indexOf(ownerId)
-if (cacheIndex !== -1) _owner.splice(cacheIndex, 1)
+if (!targetJid && !rawOwner) return reply(`Reply to a user, mention them, or use ${prefix + command} number or LID`)
+// The owner may have been saved as a phone number or as a LID, so check both forms
+let candidates
+if (targetJid) {
+    const id = normalizeOwnerId(targetJid)
+    if (!isLidOwnerId(id)) {
+        candidates = [id.split('@')[0]]
+    } else {
+        let pn = ''
+        const member = participants.find(p => [p?.id, p?.lid, p?.jid, p?.phoneNumber, p?.pn].some(x => x && normalizeOwnerId(x) === id))
+        if (member) pn = normalizeOwnerId(member.phoneNumber || member.jid || member.pn || '')
+        if (!pn || isLidOwnerId(pn)) {
+            try { pn = normalizeOwnerId(await EliteProTech.signalRepository?.lidMapping?.getPNForLID?.(id) || '') } catch { pn = '' }
+        }
+        candidates = [(pn && !isLidOwnerId(pn)) ? pn.split('@')[0] : '', id]
+    }
+} else {
+    candidates = [isLidOwnerId(rawOwner) ? normalizeOwnerId(rawOwner) : rawOwner.replace(/[^0-9]/g, '')]
+}
+const found = [...new Set(candidates.filter(Boolean))].filter(id => owner.includes(id) || _owner.includes(id))
+if (!found.length) return reply('That owner was not found')
+for (const id of found) {
+    const index = owner.indexOf(id)
+    if (index !== -1) owner.splice(index, 1)
+    const cacheIndex = _owner.indexOf(id)
+    if (cacheIndex !== -1) _owner.splice(cacheIndex, 1)
+}
 writeOwnerList()
-reply(`✅ ${ownerId} was removed from the owner list`)
+reply(`✅ ${found[0]} was removed from the owner list`)
 }
 break
 case 'emptychat':
