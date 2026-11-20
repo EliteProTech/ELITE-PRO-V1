@@ -536,31 +536,38 @@ case 'tiktok': {
         });
 
         if (text.startsWith("http")) {
-            const apiUrl = `https://eliteprotech-apis.zone.id/download/tiktok2?url=${encodeURIComponent(text)}`;
-            const { data } = await axios.get(apiUrl);
+            const apiUrl = `https://api-abztech.apps.mistral.run/download/ttdnl?url=${encodeURIComponent(text)}`;
+            const { data } = await axios.get(apiUrl, { timeout: 60000 });
 
-            if (!data.success || !data.data) {
+            if (!data?.success) {
                 return reply("⚠️ Failed to fetch TikTok video.");
             }
 
-            const video = data.data;
-            const videoUrl = video.play || video.wmplay;
+            // best quality first: HD, then SD, then the watermarked copy
+            const videoUrl = data.video?.hd?.url || data.video?.sd?.url || data.video?.watermark?.url;
 
             if (!videoUrl) {
                 return reply("⚠️ No downloadable video found.");
             }
 
-            const caption = `🎬 *TikTok Video*
+            // only show the lines the API actually filled in (no "0 likes" / "Unknown" filler)
+            const stats = data.stats || {};
+            const fmt = (n) => Number(n).toLocaleString();
+            const details = [];
+            if (data.title) details.push(`📝 *Title:* ${data.title}`);
+            if (data.author?.nickname) details.push(`👤 *Author:* ${data.author.nickname}`);
+            if (data.duration) details.push(`⏱️ *Duration:* ${typeof data.duration === "number" ? data.duration + "s" : data.duration}`);
+            if (stats.like) details.push(`❤️ *Likes:* ${fmt(stats.like)}`);
+            if (stats.comment) details.push(`💬 *Comments:* ${fmt(stats.comment)}`);
+            if (stats.share) details.push(`🔄 *Shares:* ${fmt(stats.share)}`);
+            if (stats.play) details.push(`▶️ *Views:* ${fmt(stats.play)}`);
 
-📝 *Title:* ${video.title || "No title"}
-👤 *Author:* ${video.author?.nickname || "Unknown"}
-⏱️ *Duration:* ${video.duration || 0}s
-❤️ *Likes:* ${Number(video.stats?.digg_count || 0).toLocaleString()}
-💬 *Comments:* ${Number(video.stats?.comment_count || 0).toLocaleString()}
-🔄 *Shares:* ${Number(video.stats?.share_count || 0).toLocaleString()}
-▶️ *Views:* ${Number(video.stats?.play_count || 0).toLocaleString()}
-
-> *ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴇʟɪᴛᴇ-ᴘʀᴏ-ᴛᴇᴄʜ©*`;
+            const caption = [
+                "🎬 *TikTok Video*",
+                ...(details.length ? ["", ...details] : []),
+                "",
+                "> *ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴇʟɪᴛᴇ-ᴘʀᴏ-ᴛᴇᴄʜ©*"
+            ].join("\n");
 
             return await EliteProTech.sendMessage(
                 m.chat,
