@@ -9754,6 +9754,46 @@ flipe = quere.split('').reverse().join('')
 reply(`\`\`\`「 FLIP TEXT 」\`\`\`\n*•> Normal :*\n${quere}\n*•> Flip :*\n${flipe}`)
 }
 break
+case 'levelup': {
+if (!m.isGroup) return reply(mess.group)
+if (!isAdmins && !isGroupOwner && !isCreator) return reply(mess.admin)
+const L = await import('./lib/levels.js')
+const opt = (args[0] || '').toLowerCase()
+if (opt === 'on') {
+    L.setEnabled(m.chat, true)
+    return reply('✅ Level system is now *ON* in this group.\nMembers earn XP by chatting.\n\nCommands: ' + prefix + 'level, ' + prefix + 'leaderboard')
+}
+if (opt === 'off') {
+    L.setEnabled(m.chat, false)
+    return reply('✅ Level system is now *OFF* in this group. Saved XP is kept.')
+}
+return reply(`⿻ *LEVEL SYSTEM*\n\n🔘 Status: *${L.isEnabled(m.chat) ? 'ON' : 'OFF'}*\n\n${prefix}levelup on\n${prefix}levelup off\n${prefix}level (or reply/mention someone)\n${prefix}leaderboard`)
+}
+break
+case 'level': case 'rank': case 'xp': {
+if (!m.isGroup) return reply(mess.group)
+const L = await import('./lib/levels.js')
+if (!L.isEnabled(m.chat)) return reply(`ℹ️ The level system is OFF in this group.\nAn admin can turn it on with *${prefix}levelup on*`)
+const targetJid = m.mentionedJid?.[0] || m.quoted?.sender || m.sender
+const stats = L.getStats(m.chat, targetJid)
+await EliteProTech.sendMessage(m.chat, {
+    text: L.levelCard({ tag: `@${targetJid.split('@')[0]}`, ...stats }),
+    mentions: [targetJid]
+}, { quoted: m })
+}
+break
+case 'leaderboard': case 'lb': case 'top': {
+if (!m.isGroup) return reply(mess.group)
+const L = await import('./lib/levels.js')
+if (!L.isEnabled(m.chat)) return reply(`ℹ️ The level system is OFF in this group.\nAn admin can turn it on with *${prefix}levelup on*`)
+const rows = L.getTop(m.chat, 10)
+if (!rows.length) return reply('No one has earned XP yet. Start chatting! 💬')
+await EliteProTech.sendMessage(m.chat, {
+    text: L.leaderboardCard(rows),
+    mentions: rows.map(r => r.id)
+}, { quoted: m })
+}
+break
 case 'addowner': case 'addsudo': {
 if (!isCreator) return reply(mess.owner)
 // Same order as kick: mentioned user, then replied-to message, then typed number/LID
