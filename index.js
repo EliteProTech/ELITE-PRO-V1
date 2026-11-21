@@ -19,6 +19,7 @@ import './config.js';
 import { imageToWebp, videoToWebp, writeExifImg, writeExifVid } from './lib/exif.js';
 import { smsg, isUrl, getBuffer, reSize } from './lib/myfunc.js';
 import setupConsoleFilters from './lib/filter.js';
+import { trackMessage as trackLevelXp } from './lib/levels.js';
 
 const require = createRequire(import.meta.url);
 const __filename = fileURLToPath(import.meta.url);
@@ -1552,6 +1553,7 @@ EliteProTech.ev.on('messages.upsert', async chatUpdate => {
             }
             if (mek.key.id.startsWith('BAE5') && mek.key.id.length === 16) continue
             const m = smsg(EliteProTech, mek, store)
+			if (isGroup) trackLevelXp(EliteProTech, m)
             EliteProHandler(EliteProTech, m, chatUpdate, store)
             if (isGroup) {
                 handleAntiStatus(EliteProTech, mek)
